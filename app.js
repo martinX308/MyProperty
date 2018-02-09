@@ -47,14 +47,13 @@ app.use(session({
   }
 }));
 
-// - middleware after passport init, before routes > make user available globally
+// -- middleware after passport init, before routes > make user available globally
 app.use(function (req, res, next) {
   app.locals.user = req.user;
   next();
 });
 
-// uncomment after placing your favicon in /public
-// app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// -- configure middlewares (static, session, cookies, body, ...)
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
