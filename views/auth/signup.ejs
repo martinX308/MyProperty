@@ -1,0 +1,25 @@
+<h2>Signup to get started now</h2>
+
+<form action="/signup" method="POST" id="form-container">
+  <label for="username">Username</label>
+  <input id="username" type="text" name="username" placeholder="TestUser">
+  <br><br>
+  <label for="email">Email</label>
+  <input id="email" type="text" name="email" placeholder="test@mail.com">
+  <br><br
+
+  <label for="password">Password</label>
+  <input id="password" type="password" name="password" placeholder="Your password">
+
+  <% if (typeof message !== "undefined") { %>
+    <div class="error-message"><%= message %></div>
+  <% } %>
+
+  <br><br>
+  <button>Create account</button>
+</form>
+
+<p class="account-message">
+  Do you already have an account?
+  <a href="/login">Login here</a>
+</p>

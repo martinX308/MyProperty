@@ -15,8 +15,8 @@ const flash = require('connect-flash');
 const configurePassport = require('./helpers/passport');
 
 // -- require routes
-const index = require('./routes/index');
-const users = require('./routes/users');
+const authRoute = require('./routes/authenticationControl');
+const propRoute = require('./routes/propertyViews');
 
 const app = express();
 
@@ -66,8 +66,8 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use('/', index);
-app.use('/users', users);
+app.use('/', authRoute);
+app.use('/properties', propRoute);
 
 // -- 404 and error handler
 
