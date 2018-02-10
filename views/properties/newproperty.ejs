@@ -1,0 +1,30 @@
+<a href="/properties/my-properties">Home</a>
+
+<h2>Create a new property</h2>
+
+<form action="/properties/create" method="POST" id="form-container">
+  <label for="propertyname">Property Name</label>
+  <input id="propertyname" type="text" name="propertyname" placeholder="new property">
+  <br><br>
+  <label for="owner">Property Owner</label>
+  <input id="owner" type="text" name="owner" placeholder="property owner">
+  <br><br>
+  <p>property location:</p>
+  <label for="streetCreate">Street</label>
+  <input id="streetCreate" type="text" name="street" placeholder="your street">
+  <label for="streetnrCreate">Number</label>
+  <input id="streetnrCreate" type="text" name="streetnr" placeholder="your street number">
+  <label for="zipCreate">ZIP Code</label>
+  <input id="zipCreate" type="text" name="zip" placeholder="your zip code">
+  <label for="cityCreate">City</label>
+  <input id="cityCreate" type="text" name="city" placeholder="Barcelona">
+  <label for="countryCreate">ZIP Code</label>
+  <input id="countryCreate" type="text" name="country" placeholder="ES">
+
+  <% if (typeof message !== "undefined") { %>
+    <div class="error-message"><%= message %></div>
+  <% } %>
+
+  <br><br>
+  <button>Submit</button>
+</form>
