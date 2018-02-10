@@ -42,6 +42,7 @@ Property model:
 - name
 - Location:
  - Street
+ - Nr
  - ZIP Code
  - City
  - Country
