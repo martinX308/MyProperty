@@ -47,12 +47,6 @@ app.use(session({
   }
 }));
 
-// -- middleware after passport init, before routes > make user available globally
-app.use(function (req, res, next) {
-  app.locals.user = req.user;
-  next();
-});
-
 // -- configure middlewares (static, session, cookies, body, ...)
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
@@ -65,6 +59,12 @@ configurePassport();
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+
+// -- middleware after passport init, before routes > make user available globally
+app.use(function (req, res, next) {
+  app.locals.user = req.user;
+  next();
+});
 
 app.use('/', authRoute);
 app.use('/properties', propRoute);
