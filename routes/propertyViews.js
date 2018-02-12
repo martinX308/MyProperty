@@ -53,4 +53,15 @@ router.post('/create', (req, res, next) => {
   });
 });
 
+router.get('/edit/:id', (req, res, next) => {
+  const propertyId = req.params.id;
+
+  Property.findById(propertyId, (err, property) => {
+    if (err) { return next(err); }
+    res.render('properties/editproperty', { property: property });
+  });
+});
+
+
+
 module.exports = router;
