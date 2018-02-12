@@ -64,14 +64,38 @@ router.get('/properties/view/:id', (req, res, next) => {
       return;
     }
 
-    const aggregationMonth = property.accountingbook.map(element =>
-      element.date.map(x => [x.getMonth(), x.getYear()]));
+    const costTemplate = {
+      'rent': 0,
+      'tentantFee': 0,
+      'gas': 0,
+      'electricity': 0,
+      'appartment-construction': 0,
+      'wifi': 0,
+      'community': 0,
+      'general-maintenance': 0
+    };
 
-    const aggregationType = aggregationMonth.reduce((acc, transaction) => {
-      let selectedYear = transaction.date[1];
-      acc[selectedYear][transaction.type][transaction.name] += transaction.value;
-      return acc;
-    }, {});
+    const yearInput = '2017';
+    const costArray = [];
+
+    for (let i = 0; i < 12; i++) { // for all months
+      let month = costTemplate;
+      property.accountingbook.forEach(element => {
+        if (element.date.getYear() === yearInput && element.date.getMonth() === i) {
+          month[element.name] += element.value * element.type;
+        }
+        costArray.push(month);
+      });
+    }
+
+    // const aggregationMonth = property.accountingbook.map(element =>
+    //   element.date.map(x => [x.getMonth(), x.getYear()]));
+
+    // const aggregationType = aggregationMonth.reduce((acc, transaction) => {
+    //   let selectedYear = transaction.date[1];
+    //   acc[selectedYear][transaction.type][transaction.name] += transaction.value;
+    //   return acc;
+    // }, {});
 
     res.render('properties/viewproperty', {transactions: aggregationType});
   });
