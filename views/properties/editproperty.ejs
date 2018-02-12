@@ -25,16 +25,52 @@
   <% } %> -->
 
   <br><br>
-
-  <button type='submit'>Submit</button>
-
+    <button type='submit'>Submit</button>
   </form>
 </div>
 
+<br><br>
+
 <div id="accounting-book">
 
+  <div id="column-headers">
+    <div>
+      <p>Record</p>
+    </div>
+    <div>
+      <p>Value</p>
+    </div>
+    <div>
+      <p>Date</p>
+    </div>
+  </div>
 
+  <div id="accounting-row">
+    <div>
+      <select name="text" id="">
+        <option value="value1" selected>Rent</option> 
+        <option value="value2">Tenant Fee</option>
+        <option value="value3">Gas</option>
+        <option value="value3">Electricity</option>
+        <option value="value3">Appartment construction</option>
+        <option value="value3">Wifi</option>
+        <option value="value3">Community</option>
+        <option value="value3">General maintenance</option>
+      </select>
+    </div>
+    <div>
+      <input type="number" >
+    </div>
+    <div>
+      <input type="date" >
+    </div>
+  </div>
 
 </div>
 
-<button type="submit">Add New Record </button>
+<br><br>
+
+<button type="submit">Add New Record</button>
+<button type="submit">Submit</button>
+
+<script src="/javascripts/editproperty.js" type="text/javascript"></script>
