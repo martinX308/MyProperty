@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 
 const transactionSchema = new Schema({
-  type: {type: String, enum: ['rent', 'tentantFee', 'gas', 'electricity', 'appartment-construction', 'wifi', 'community', 'general-maintenance']},
+  name: {type: String, enum: ['rent', 'tentantFee', 'gas', 'electricity', 'appartment-construction', 'wifi', 'community', 'general-maintenance']},
+  type: Number, // 0 >cost 1 >revenue
   date: Date,
   value: Number
 });
