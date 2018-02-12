@@ -31,7 +31,7 @@ router.post('/create', (req, res, next) => {
   const country = req.body.country;
 
   if (name === '' || street === '' || nr === '' || zip === '' || city === '' || country === '') {
-    res.render('properties/create', { message: 'Indicate all fields' });
+    res.render('properties/newproperty', { message: 'Indicate all fields' });
     return;
   }
   const newProperty = new Property({
@@ -45,7 +45,7 @@ router.post('/create', (req, res, next) => {
   });
 
   newProperty.save((err) => {
-    if (err) { 
+    if (err) {
       return next(err);
     } else {
       res.redirect('/properties/my-properties');
@@ -53,7 +53,7 @@ router.post('/create', (req, res, next) => {
   });
 });
 
-router.get('/edit/:id', (req, res, next) => {
+router.get('/:id/edit', (req, res, next) => {
   const propertyId = req.params.id;
 
   Property.findById(propertyId, (err, property) => {
@@ -63,5 +63,23 @@ router.get('/edit/:id', (req, res, next) => {
 });
 
 
+router.post('/:id/edit', (req, res, next) => {
+  const propertyId = req.params.id;
+
+  const updates = {
+    name    : req.body.propertyname,
+    street  : req.body.street,
+    nr      : req.body.streetnumber,
+    zip     : req.body.zip,
+    city    : req.body.city,
+    country : req.body.country
+  };
+
+  Property.findByIdAndUpdate(propertyId, updates, (err, property) => {
+    if (err){ return next(err); }
+    return res.redirect('/properties/my-properties');
+    alert('Your changes have been updated');
+  });
+});
 
 module.exports = router;

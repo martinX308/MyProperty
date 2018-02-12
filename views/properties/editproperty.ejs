@@ -1,1 +1,40 @@
-<h1>You are now editing your property</h1>
+<a href="/properties/my-properties">Home</a>
+
+<h2>Edit your property</h2>
+
+<div id="basic-details-edit">
+  <form action="/properties/<%= property._id %>/edit" method="POST" id="form-container">
+
+  <label for="propertyname">Property Name</label>
+  <input id="propertyname" type="text" name="propertyname" value="<%= property.name %>">
+  <br><br>
+  <p>Property location:</p>
+  <label for="streetEdit">Street</label>
+  <input id="streetEdit" type="text" name="street" value="<%= property.street %>">
+  <label for="streetnrEdit">Number</label>
+  <input id="streetnrEdit" type="text" name="streetnumber" value="<%= property.nr %>">
+  <label for="zipEdit">ZIP Code</label>
+  <input id="zipEdit" type="text" name="zip" value="<%= property.zip %>">
+  <label for="cityEdit">City</label>
+  <input id="cityEdit" type="text" name="city" value="<%= property.city %>">
+  <label for="countryEdit">Country</label>
+  <input id="countryEdit" type="text" name="country" value="<%= property.country %>">
+
+  <!-- <% if (typeof message !== "undefined") { %>
+      <div class="error-message"><%= message %></div>
+  <% } %> -->
+
+  <br><br>
+
+  <button type='submit'>Submit</button>
+
+  </form>
+</div>
+
+<div id="accounting-book">
+
+
+
+</div>
+
+<button type="submit">Add New Record </button>
