@@ -65,6 +65,7 @@ router.get('/properties/view/:id', (req, res, next) => {
     }
 
     const costTemplate = {
+      'month': '',
       'rent': 0,
       'tentantFee': 0,
       'gas': 0,
@@ -77,13 +78,19 @@ router.get('/properties/view/:id', (req, res, next) => {
 
     const yearInput = '2017';
     const costArray = [];
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
 
     for (let i = 0; i < 12; i++) { // for all months
       let month = costTemplate;
+      month['month'] = monthNames[i];
+
       property.accountingbook.forEach(element => {
         if (element.date.getYear() === yearInput && element.date.getMonth() === i) {
           month[element.name] += element.value * element.type;
         }
+
         costArray.push(month);
       });
     }
@@ -97,7 +104,7 @@ router.get('/properties/view/:id', (req, res, next) => {
     //   return acc;
     // }, {});
 
-    res.render('properties/viewproperty', {transactions: aggregationType});
+    res.render('properties/viewproperty', {transactions: costArray, timeline: ['Jan', 'Feb']});
   });
 });
 module.exports = router;
