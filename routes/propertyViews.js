@@ -69,20 +69,32 @@ router.get('/:id/edit', (req, res, next) => {
 router.post('/:id/edit', (req, res, next) => {
   const propertyId = req.params.id;
 
+  const newTransaction = {
+    value:req.body.value,
+    date: req.body.date,
+    name: req.body.accountItem
+  }
   const updates = {
     name    : req.body.propertyname,
     street  : req.body.street,
     nr      : req.body.streetnumber,
     zip     : req.body.zip,
     city    : req.body.city,
-    country : req.body.country
+    country : req.body.country,
+    accountingbook: []
   };
+
+  updates.accountingbook.push(newTransaction);
 
   Property.findByIdAndUpdate(propertyId, updates, (err, property) => {
     if (err){ return next(err); }
     return res.redirect('/properties/my-properties');
-    alert('Your changes have been updated');
   });
+
+  
+
+  
+
 });
 
 

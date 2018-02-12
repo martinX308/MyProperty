@@ -40,6 +40,6 @@ h3 {}
   display: flex;
 }
 
-#column-headers div, #accounting-row div{
+#column-headers div, .accounting-row div{
   width: 30%;
 }
