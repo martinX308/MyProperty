@@ -63,7 +63,7 @@ router.get('/', (req, res, next) => {
 
 router.post('/login', passport.authenticate('local', {
   successRedirect: '/properties/my-properties',
-  failureRedirect: '/login', // adjust
+  failureRedirect: '/', // adjust
   failureFlash: true,
   passReqToCallback: true
 }));
