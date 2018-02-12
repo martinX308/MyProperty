@@ -31,7 +31,7 @@ router.post('/create', (req, res, next) => {
   const country = req.body.country;
 
   if (name === '' || street === '' || nr === '' || zip === '' || city === '' || country === '') {
-    res.render('properties/create', { message: 'Indicate all fields' });
+    res.render('properties/newproperty', { message: 'Indicate all fields' });
     return;
   }
   const newProperty = new Property({
@@ -45,7 +45,7 @@ router.post('/create', (req, res, next) => {
   });
 
   newProperty.save((err) => {
-    if (err) { 
+    if (err) {
       return next(err);
     } else {
       res.redirect('/properties/my-properties');
