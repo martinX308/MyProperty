@@ -64,7 +64,25 @@ router.get('/:id/edit', ensureloggedin, (req, res, next) => {
   });
 });
 
-router.post('/:id/edit', (req, res, next) => {
+router.post('/:id/edit/property', (req, res, next) => {
+  const propertyId = req.params.id;
+
+  const updates = {
+    name: req.body.propertyname,
+    street: req.body.street,
+    nr: req.body.streetnumber,
+    zip: req.body.zip,
+    city: req.body.city,
+    country: req.body.country
+  };
+
+  Property.findByIdAndUpdate(propertyId, updates, (err, property) => {
+    if (err) { return next(err); }
+  });
+  res.redirect('/properties/' + propertyId + '/edit');
+});
+
+router.post('/:id/edit/account', (req, res, next) => {
   const propertyId = req.params.id;
 
   const newTransaction = {
@@ -81,16 +99,7 @@ router.post('/:id/edit', (req, res, next) => {
     return;
   }
 
-  const updates = {
-    name: req.body.propertyname,
-    street: req.body.street,
-    nr: req.body.streetnumber,
-    zip: req.body.zip,
-    city: req.body.city,
-    country: req.body.country
-  };
-
-  Property.findByIdAndUpdate(propertyId, { '$push': {'accountingbook': newTransaction}, '$set': updates }, (err, property) => {
+  Property.findByIdAndUpdate(propertyId, { '$push': {'accountingbook': newTransaction}}, (err, property) => {
     if (err) { return next(err); }
   });
   res.redirect('/properties/' + propertyId + '/edit');
