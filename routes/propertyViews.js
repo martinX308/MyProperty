@@ -17,9 +17,11 @@ router.get('/my-properties', (req, res, next) => {
   });
 });
 
+
 router.get('/create', (req, res, next) => {
   res.render('properties/newproperty');
 });
+
 
 router.post('/create', (req, res, next) => {
   const userId = req.user._id;
@@ -52,6 +54,49 @@ router.post('/create', (req, res, next) => {
     }
   });
 });
+
+
+router.get('/:id/edit', (req, res, next) => {
+  const propertyId = req.params.id;
+
+  Property.findById(propertyId, (err, property) => {
+    if (err) { return next(err); }
+    res.render('properties/editproperty', { property: property });
+  });
+});
+
+
+router.post('/:id/edit', (req, res, next) => {
+  const propertyId = req.params.id;
+
+  const newTransaction = {
+    value:req.body.value,
+    date: req.body.date,
+    name: req.body.accountItem
+  }
+  const updates = {
+    name    : req.body.propertyname,
+    street  : req.body.street,
+    nr      : req.body.streetnumber,
+    zip     : req.body.zip,
+    city    : req.body.city,
+    country : req.body.country,
+    accountingbook: []
+  };
+
+  updates.accountingbook.push(newTransaction);
+
+  Property.findByIdAndUpdate(propertyId, updates, (err, property) => {
+    if (err){ return next(err); }
+    return res.redirect('/properties/my-properties');
+  });
+
+  
+
+  
+
+});
+
 
 router.get('/properties/view/:id', (req, res, next) => {
   const propId = req.params._id;
@@ -107,4 +152,6 @@ router.get('/properties/view/:id', (req, res, next) => {
     res.render('properties/viewproperty', {transactions: costArray, timeline: ['Jan', 'Feb']});
   });
 });
+
+
 module.exports = router;

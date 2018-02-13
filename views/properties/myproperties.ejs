@@ -4,7 +4,7 @@
    properties.forEach(function (element){
   %>
     <p>Property:<%= element.name %> Address: <%= element.street %>, <%= element.nr %> (<%= element.zip %>,<%= element.city %>,<%= element.country %>)</p>
-    <button><a href="/properties/edit/<%=element._id%>">Edit property</a></button>
+    <button><a href="/properties/<%=element._id%>/edit">Edit property</a></button>
     <button><a href="/properties/view/<%=element._id%>">View property</a></button>
     <br><br>
   <%

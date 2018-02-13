@@ -35,3 +35,11 @@ h3 {}
 
 
 /* ---- components ---- */
+
+#column-headers, #accounting-row {
+  display: flex;
+}
+
+#column-headers div, .accounting-row div{
+  width: 30%;
+}
