@@ -5,6 +5,7 @@ const router = express.Router();
 const Property = require('../models/property');
 const User = require('../models/user');
 
+
 router.get('/my-properties', (req, res, next) => {
   const user = req.user; // how does the "global" user declaration work
 
@@ -17,9 +18,11 @@ router.get('/my-properties', (req, res, next) => {
   });
 });
 
+
 router.get('/create', (req, res, next) => {
   res.render('properties/newproperty');
 });
+
 
 router.post('/create', (req, res, next) => {
   const userId = req.user._id;
@@ -53,17 +56,39 @@ router.post('/create', (req, res, next) => {
   });
 });
 
+
 router.get('/:id/edit', (req, res, next) => {
   const propertyId = req.params.id;
-
+  
   Property.findById(propertyId, (err, property) => {
     if (err) { return next(err); }
-
+    
     res.render('properties/editproperty', { property: property });
   });
 });
 
-router.post('/:id/edit', (req, res, next) => {
+
+router.post('/:id/edit/property', (req, res, next) => {
+  const propertyId = req.params.id;
+
+  const updates = {
+    name: req.body.propertyname,
+    street: req.body.street,
+    nr: req.body.streetnumber,
+    zip: req.body.zip,
+    city: req.body.city,
+    country: req.body.country
+  };
+
+  Property.findByIdAndUpdate(propertyId, updates, (err, property) => {
+    if (err) { return next(err); }
+  });
+  res.redirect('/properties/' + propertyId + '/edit');
+  return;
+});
+
+
+router.post('/:id/edit/account', (req, res, next) => {
   const propertyId = req.params.id;
 
   const newTransaction = {
@@ -80,21 +105,13 @@ router.post('/:id/edit', (req, res, next) => {
     return;
   }
 
-  const updates = {
-    name: req.body.propertyname,
-    street: req.body.street,
-    nr: req.body.streetnumber,
-    zip: req.body.zip,
-    city: req.body.city,
-    country: req.body.country
-  };
-
-  Property.findByIdAndUpdate(propertyId, { '$push': {'accountingbook': newTransaction}, '$set': updates }, (err, property) => {
+  Property.findByIdAndUpdate(propertyId, { '$push': {'accountingbook': newTransaction}}, (err, property) => {
     if (err) { return next(err); }
   });
   res.redirect('/properties/' + propertyId + '/edit');
   return;
 });
+
 
 router.get('/view/:id', (req, res, next) => {
   const propId = req.params.id;

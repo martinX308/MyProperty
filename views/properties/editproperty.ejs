@@ -4,7 +4,7 @@
 <h2>Edit your property</h2>
 
 <div id="basic-details-edit">
-  <form action="/properties/<%= property._id %>/edit" method="POST" id="form-container">
+  <form action="/properties/<%= property._id %>/edit/property" method="POST" id="form-container">
 
   <label for="propertyname">Property Name</label>
   <input id="propertyname" type="text" name="propertyname" value="<%= property.name %>">
@@ -20,13 +20,10 @@
   <input id="cityEdit" type="text" name="city" value="<%= property.city %>">
   <label for="countryEdit">Country</label>
   <input id="countryEdit" type="text" name="country" value="<%= property.country %>">
-  
-  <!-- <% if (typeof message !== "undefined") { %>
-      <div class="error-message"><%= message %></div>
-  <% } %> -->
 
   <br><br>
     <button type='submit'>Submit</button>
+  </form>
 </div>
 
 
@@ -52,9 +49,13 @@
     <span><%= element.name %></span>
     <span><%= element.value %></span>
     <span><%= element.date.toString().slice(0,10)%></span>
+    <form action="/properties/<%= property._id %>/<%= element._id %>/delete" method="POST">
+      <button type="submit">Delete row</button>
+    </form>
   </div>
   <% }); %>
 
+  <form action="/properties/<%= property._id %>/edit/account" method="POST">
     <div class="accounting-row">
       <div>
         <select name="accountItem" id="account-item">
@@ -76,7 +77,7 @@
       </div>
     </div>
 
-    <button type="submit" id="btn-add-record">Add New Record and Update Property Info</button>
+    <button type="submit" id="btn-add-record">Add New Record</button>
   </form>
 
 <br><br>
