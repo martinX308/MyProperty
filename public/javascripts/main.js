@@ -10,6 +10,38 @@ function main () {
     axios.get('/api/draw-my-chart/' + id)
       .then(result => {
         console.log('result:' + result.data);
+        const lineChart = new Chart(ctx, {
+          data: {
+            labels: result.data.xArray,
+            datasets: [// {
+              // backgroundColor: 'rgb(255, 99, 132)',
+              // borderColor: 'rgb(255, 99, 132)',
+              // data: result.data.yArrayCost
+
+              { label: 'monthly cost',
+                fillColor: 'rgba(220,220,220,0.2)',
+                strokeColor: 'rgba(220,220,220,1)',
+                data: result.data.yArrayCost
+              },
+              { label: 'monthly revenue',
+                fillColor: 'rgba(151,187,205,0.2)',
+                strokeColor: 'rgba(151,187,205,1)',
+                data: result.data.yArrayRev
+              }
+              // }
+            ]
+          },
+          type: 'line',
+          options: {
+            scales: {
+              yAxes: [{
+                ticks: {
+                  beginAtZero: true
+                }
+              }]
+            }
+          }
+        });
       }).catch(err => {
         console.error(err);
       });
@@ -19,28 +51,6 @@ function main () {
     console.log('button clicked');
     requestGraphData();
   };
-
-  // const lineChart = new Chart(ctx, {
-  //   data: {
-  //     labels: keyArray,
-  //     datasets: [{
-  //       label: 'monthly transactions',
-  //       //   backgroundColor: 'rgb(255, 99, 132)',
-  //       borderColor: 'rgb(255, 99, 132)',
-  //       data: valueArray
-  //     }]
-  //   },
-  //   type: 'bar',
-  //   options: {
-  //     scales: {
-  //       yAxes: [{
-  //         ticks: {
-  //           beginAtZero: true
-  //         }
-  //       }]
-  //     }
-  //   }
-  // });
 }
 
 window.onload = main;

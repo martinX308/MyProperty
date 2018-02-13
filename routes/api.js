@@ -40,8 +40,8 @@ router.get('/api/draw-my-chart/:id', function (req, res, next) {
       month['month'] = monthNames[i];
       const monthBalance = {
         month: monthNames[i],
-        cost: 0,
-        revenue: 0
+        cost: 50,
+        revenue: 100
       };
 
       property.accountingbook.forEach(element => {
@@ -63,7 +63,7 @@ router.get('/api/draw-my-chart/:id', function (req, res, next) {
       revGraph.push(monthBalance.revenue);
     }
 
-    res.json({yArray: monthNames, xArray: costGraph});
+    res.json({yArrayCost: costGraph, yArrayRev: revGraph, xArray: monthNames});
     console.log('123');
   });
 });
