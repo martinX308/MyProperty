@@ -88,13 +88,15 @@ router.post('/:id/edit', (req, res, next) => {
   });
 });
 
-router.get('/properties/view/:id', (req, res, next) => {
-  const propId = req.params._id;
+router.get('/view/:id', (req, res, next) => {
+  const propId = req.params.id;
   Property.findById(propId, 'accountingbook owner', (err, property, next) => {
     if (err) {
       return next(err);
     }
-    if (req.user !== property.owner) {
+    console.log(property.owner);
+
+    if (req.user.id !== property.owner.toString()) {
       res.redirect('/properties/my-properties');
       return;
     }
@@ -105,25 +107,26 @@ router.get('/properties/view/:id', (req, res, next) => {
       'tentantFee': 0,
       'gas': 0,
       'electricity': 0,
-      'appartment-construction': 0,
+      'appartmentConstruction': 0,
       'wifi': 0,
       'community': 0,
-      'general-maintenance': 0
+      'generalMaintenance': 0
     };
 
-    const yearInput = '2017';
+    const yearInput = 2017;
     const costArray = [];
     const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'
     ];
 
     for (let i = 0; i < 12; i++) { // for all months
-      let month = costTemplate;
+      let month = Object.assign({}, costTemplate);
       month['month'] = monthNames[i];
+      console.log(property.accountingbook.length);
 
       property.accountingbook.forEach(element => {
-        if (element.date.getYear() === yearInput && element.date.getMonth() === i) {
-          month[element.name] += element.value * element.type;
+        if (element.date.getFullYear() === yearInput && element.date.getMonth() === i) {
+          month[element.name] += element.value;
         }
 
         costArray.push(month);
@@ -139,7 +142,7 @@ router.get('/properties/view/:id', (req, res, next) => {
     //   return acc;
     // }, {});
 
-    res.render('properties/viewproperty', {transactions: costArray, timeline: ['Jan', 'Feb']});
+    res.render('properties/viewproperty', {transactions: costArray, timeline: monthNames});
   });
 });
 
