@@ -10,7 +10,12 @@
 
 <body>
   <%if (user) { %>
-    <h1>navbar</h1>
+    <nav>
+      <ul>
+        <li><a href="/properties/my-properties">Home</a></li>    
+        <li><a href="/logout">Logout</a></li>
+      </ul>
+    </nav>
   <%} %>
   <%- body%>  
   

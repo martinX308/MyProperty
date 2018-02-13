@@ -4,8 +4,9 @@ const router = express.Router();
 // link property models
 const Property = require('../models/property');
 const User = require('../models/user');
+const ensureloggedin = require('../helpers/ensureUserLoggedIn');
 
-router.get('/my-properties', (req, res, next) => {
+router.get('/my-properties', ensureloggedin, (req, res, next) => {
   const user = req.user; // how does the "global" user declaration work
 
   Property.find({owner: user._id}, (err, foundProperties) => {
@@ -17,11 +18,11 @@ router.get('/my-properties', (req, res, next) => {
   });
 });
 
-router.get('/create', (req, res, next) => {
+router.get('/create', ensureloggedin, (req, res, next) => {
   res.render('properties/newproperty');
 });
 
-router.post('/create', (req, res, next) => {
+router.post('/create', ensureloggedin, (req, res, next) => {
   const userId = req.user._id;
   const name = req.body.propertyname;
   const street = req.body.street;
@@ -53,7 +54,7 @@ router.post('/create', (req, res, next) => {
   });
 });
 
-router.get('/:id/edit', (req, res, next) => {
+router.get('/:id/edit', ensureloggedin, (req, res, next) => {
   const propertyId = req.params.id;
 
   Property.findById(propertyId, (err, property) => {
@@ -95,7 +96,7 @@ router.post('/:id/edit', (req, res, next) => {
   res.redirect('/properties/' + propertyId + '/edit');
 });
 
-router.get('/view/:id', (req, res, next) => {
+router.get('/view/:id', ensureloggedin, (req, res, next) => {
   const propId = req.params.id;
 
   Property.findById(propId, 'accountingbook owner', (err, property, next) => {

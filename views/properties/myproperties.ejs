@@ -1,14 +1,14 @@
-<a href="/logout">Logout</a>
 
 <h2>Welcome user</h2>
 <h3>Here you can manage your properties</h3>
 <% if( properties !== undefined){
    properties.forEach(function (element){
   %>
+  <div>
     <p>Property:<%= element.name %> Address: <%= element.street %>, <%= element.nr %> (<%= element.zip %>,<%= element.city %>,<%= element.country %>)</p>
     <button><a href="/properties/<%=element._id%>/edit">Edit property</a></button>
     <button><a href="/properties/view/<%=element._id%>">View property</a></button>
-    <br><br>
+  </div>
   <%
   }); 
 }%>
