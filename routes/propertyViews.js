@@ -112,6 +112,25 @@ router.post('/:id/edit/account', (req, res, next) => {
 });
 
 
+router.post('/:idProperty/:idAccounting/delete', (req, res, next) => {
+  const propertyId = req.params.idProperty;
+  const accountingRowId = req.params.idAccounting;
+
+  Property.findById(propertyId, (err, property) => {
+    if (err) { return next(err); }
+    property.accountingbook.pull({"_id": accountingRowId});
+
+    property.save(function (err) {
+      if (err) { 
+        return next(err) ;
+      }
+    });
+  });
+
+  res.redirect('/properties/' + propertyId + '/edit');
+});
+
+
 router.get('/view/:id', (req, res, next) => {
   const propId = req.params.id;
 
