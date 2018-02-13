@@ -17,6 +17,7 @@ const configurePassport = require('./helpers/passport');
 // -- require routes
 const authRoute = require('./routes/authenticationControl');
 const propRoute = require('./routes/propertyViews');
+const apiRoute = require('./routes/api');
 
 const app = express();
 
@@ -33,6 +34,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.set('layout', 'layouts/main');
 
+// -- configure middlewares (static, session, cookies, body, ...)
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+
 // -- setup session
 app.use(session({
   store: new MongoStore({
@@ -46,13 +54,6 @@ app.use(session({
     maxAge: 24 * 60 * 60 * 1000
   }
 }));
-
-// -- configure middlewares (static, session, cookies, body, ...)
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 
 // - passport
 configurePassport();
@@ -68,6 +69,7 @@ app.use(function (req, res, next) {
 
 app.use('/', authRoute);
 app.use('/properties', propRoute);
+app.use('/', apiRoute);
 
 // -- 404 and error handler
 

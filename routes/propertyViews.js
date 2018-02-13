@@ -93,7 +93,6 @@ router.get('/view/:id', (req, res, next) => {
     if (err) {
       return next(err);
     }
-    console.log(property.owner);
 
     if (req.user.id !== property.owner.toString()) {
       res.redirect('/properties/my-properties');
@@ -102,28 +101,29 @@ router.get('/view/:id', (req, res, next) => {
 
     const costTemplate = {
       'rent': 0,
-      'tentantFee': 0,
+      'tentant-fee': 0,
       'gas': 0,
       'electricity': 0,
-      'appartmentConstruction': 0,
+      'appartment-construction': 0,
       'wifi': 0,
       'community': 0,
-      'generalMaintenance': 0
+      'general-maintenance': 0
     };
 
     const yearInput = 2017;
     const costArray = [];
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
     for (let i = 0; i < 12; i++) { // for all months
       let month = Object.assign({}, costTemplate);
       month['month'] = monthNames[i];
-      console.log(property.accountingbook.length);
       property.accountingbook.forEach(element => {
         if (element.date.getFullYear() === yearInput && element.date.getMonth() === i) {
           month[element.name] += element.value;
         }
-        costArray.push(month);
+        // costArray.push(month);
       });
+      costArray.push(month);
     }
 
     // const aggregationMonth = property.accountingbook.map(element =>
