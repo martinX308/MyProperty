@@ -17,9 +17,11 @@ router.get('/my-properties', (req, res, next) => {
   });
 });
 
+
 router.get('/create', (req, res, next) => {
   res.render('properties/newproperty');
 });
+
 
 router.post('/create', (req, res, next) => {
   const userId = req.user._id;
@@ -53,40 +55,42 @@ router.post('/create', (req, res, next) => {
   });
 });
 
+
 router.get('/:id/edit', (req, res, next) => {
   const propertyId = req.params.id;
 
   Property.findById(propertyId, (err, property) => {
     if (err) { return next(err); }
+    
     res.render('properties/editproperty', { property: property });
   });
 });
+
 
 router.post('/:id/edit', (req, res, next) => {
   const propertyId = req.params.id;
 
   const newTransaction = {
-    value: req.body.value,
-    date: req.body.date,
-    name: req.body.accountItem
-  };
+    value :req.body.value,
+    date  : req.body.date,
+    name  : req.body.accountItem
+  }
   const updates = {
-    name: req.body.propertyname,
-    street: req.body.street,
-    nr: req.body.streetnumber,
-    zip: req.body.zip,
-    city: req.body.city,
-    country: req.body.country,
-    accountingbook: []
+    name    : req.body.propertyname,
+    street  : req.body.street,
+    nr      : req.body.streetnumber,
+    zip     : req.body.zip,
+    city    : req.body.city,
+    country : req.body.country,
   };
 
-  updates.accountingbook.push(newTransaction);
-
-  Property.findByIdAndUpdate(propertyId, updates, (err, property) => {
-    if (err) { return next(err); }
-    return res.redirect('/properties/my-properties');
+  Property.findByIdAndUpdate(propertyId, { "$push": {"accountingbook": newTransaction} , "$set": updates }, (err, property) => {
+    if (err){ return next(err); }
   });
+  return res.redirect('/properties/my-properties');
+  
 });
+
 
 router.get('/properties/view/:id', (req, res, next) => {
   const propId = req.params._id;
@@ -100,7 +104,6 @@ router.get('/properties/view/:id', (req, res, next) => {
     }
 
     const costTemplate = {
-      'month': '',
       'rent': 0,
       'tentantFee': 0,
       'gas': 0,
@@ -113,19 +116,13 @@ router.get('/properties/view/:id', (req, res, next) => {
 
     const yearInput = '2017';
     const costArray = [];
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
-    ];
 
     for (let i = 0; i < 12; i++) { // for all months
       let month = costTemplate;
-      month['month'] = monthNames[i];
-
       property.accountingbook.forEach(element => {
         if (element.date.getYear() === yearInput && element.date.getMonth() === i) {
           month[element.name] += element.value * element.type;
         }
-
         costArray.push(month);
       });
     }
@@ -139,8 +136,9 @@ router.get('/properties/view/:id', (req, res, next) => {
     //   return acc;
     // }, {});
 
-    res.render('properties/viewproperty', {transactions: costArray, timeline: ['Jan', 'Feb']});
+    res.render('properties/viewproperty', {transactions: aggregationType});
   });
 });
+
 
 module.exports = router;
