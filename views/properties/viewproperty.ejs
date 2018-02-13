@@ -20,7 +20,7 @@
   <tr>
     <td>Tentant fees</td>
     <% transactions.forEach(function (element) {
-      %> <td> <%= element.tentantFee %> </td>
+      %> <td> <%= element["tentant-fee"] %> </td>
     <%}); %>
 </tr>
 <tr>
@@ -38,7 +38,7 @@
 <tr>
     <td>Appartment construction</td>
     <% transactions.forEach(function (element) {
-      %> <td> <%= element.appartmentConstruction %> </td>
+      %> <td> <%= element["appartment-construction"] %> </td>
     <%});%>
 </tr>
 <tr>
@@ -56,7 +56,15 @@
 <tr>
     <td>General maintenance</td>
     <% transactions.forEach(function (element) {
-      %> <td> <%= element.generalMaintenance %> </td>
+      %> <td> <%= element["general-maintenance"] %> </td>
     <%});%>
 </tr>
 </table>
+
+<div>
+  <button id="chartButton">Get Chart</button>
+</div>
+
+<canvas id="my-chart" width="400" height="400"></canvas>
+
+

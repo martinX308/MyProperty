@@ -9,7 +9,14 @@
 </head>
 
 <body>
+  <%if (user) { %>
+    <h1>navbar</h1>
+  <%} %>
   <%- body%>  
-
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="/javascripts/main.js" type="text/javascript"></script>
 </body>
+
+</html>
