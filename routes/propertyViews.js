@@ -67,15 +67,15 @@ router.post('/:id/edit', (req, res, next) => {
   const propertyId = req.params.id;
 
   const newTransaction = {
-    value : req.body.value,
-    date  : req.body.date,
-    name  : req.body.accountItem
-  }
+    value: req.body.value,
+    date: req.body.date,
+    name: req.body.accountItem
+  };
 
-  if (newTransaction.date === "" || newTransaction.value === "") {
+  if (newTransaction.date === '' || newTransaction.value === '') {
     Property.findById(propertyId, (err, property) => {
       if (err) { return next(err); }
-      res.render('properties/editproperty', { property: property, message : 'All files must be filled before submitting a new record' });
+      res.render('properties/editproperty', { property: property, message: 'All files must be filled before submitting a new record' });
     });
     return;
   }
@@ -93,7 +93,6 @@ router.post('/:id/edit', (req, res, next) => {
     if (err) { return next(err); }
   });
   res.redirect('/properties/' + propertyId + '/edit');
-  
 });
 
 router.get('/view/:id', (req, res, next) => {
