@@ -17,11 +17,9 @@ router.get('/my-properties', (req, res, next) => {
   });
 });
 
-
 router.get('/create', (req, res, next) => {
   res.render('properties/newproperty');
 });
-
 
 router.post('/create', (req, res, next) => {
   const userId = req.user._id;
@@ -55,13 +53,12 @@ router.post('/create', (req, res, next) => {
   });
 });
 
-
 router.get('/:id/edit', (req, res, next) => {
   const propertyId = req.params.id;
 
   Property.findById(propertyId, (err, property) => {
     if (err) { return next(err); }
-    
+
     res.render('properties/editproperty', { property: property });
   });
 });
@@ -84,29 +81,31 @@ router.post('/:id/edit', (req, res, next) => {
   }
 
   const updates = {
-    name    : req.body.propertyname,
-    street  : req.body.street,
-    nr      : req.body.streetnumber,
-    zip     : req.body.zip,
-    city    : req.body.city,
-    country : req.body.country,
+    name: req.body.propertyname,
+    street: req.body.street,
+    nr: req.body.streetnumber,
+    zip: req.body.zip,
+    city: req.body.city,
+    country: req.body.country
   };
 
-  Property.findByIdAndUpdate(propertyId, { "$push": {"accountingbook": newTransaction} , "$set": updates }, (err, property) => {
-    if (err){ return next(err); }
+  Property.findByIdAndUpdate(propertyId, { '$push': {'accountingbook': newTransaction}, '$set': updates }, (err, property) => {
+    if (err) { return next(err); }
   });
   res.redirect('/properties/' + propertyId + '/edit');
   return;
 });
 
+router.get('/view/:id', (req, res, next) => {
+  const propId = req.params.id;
 
-router.get('/properties/view/:id', (req, res, next) => {
-  const propId = req.params._id;
   Property.findById(propId, 'accountingbook owner', (err, property, next) => {
     if (err) {
       return next(err);
     }
-    if (req.user !== property.owner) {
+    console.log(property.owner);
+
+    if (req.user.id !== property.owner.toString()) {
       res.redirect('/properties/my-properties');
       return;
     }
@@ -116,20 +115,22 @@ router.get('/properties/view/:id', (req, res, next) => {
       'tentantFee': 0,
       'gas': 0,
       'electricity': 0,
-      'appartment-construction': 0,
+      'appartmentConstruction': 0,
       'wifi': 0,
       'community': 0,
-      'general-maintenance': 0
+      'generalMaintenance': 0
     };
 
-    const yearInput = '2017';
+    const yearInput = 2017;
     const costArray = [];
 
     for (let i = 0; i < 12; i++) { // for all months
-      let month = costTemplate;
+      let month = Object.assign({}, costTemplate);
+      month['month'] = monthNames[i];
+      console.log(property.accountingbook.length);
       property.accountingbook.forEach(element => {
-        if (element.date.getYear() === yearInput && element.date.getMonth() === i) {
-          month[element.name] += element.value * element.type;
+        if (element.date.getFullYear() === yearInput && element.date.getMonth() === i) {
+          month[element.name] += element.value;
         }
         costArray.push(month);
       });
@@ -144,9 +145,8 @@ router.get('/properties/view/:id', (req, res, next) => {
     //   return acc;
     // }, {});
 
-    res.render('properties/viewproperty', {transactions: aggregationType});
+    res.render('properties/viewproperty', {transactions: costArray, timeline: monthNames});
   });
 });
-
 
 module.exports = router;

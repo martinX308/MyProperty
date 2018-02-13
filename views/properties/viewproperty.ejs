@@ -4,56 +4,56 @@
   <caption>Monthly balance </caption>
   <tr>
     <th></th>
-    <%- transactions.forEach(function (element) {
+    <% transactions.forEach(function (element) {
      %> <th> <%= element.month %> </th>
-    <%-}); %>
+    <% }); %>
   </tr>
   <tr>
-    <td>rent</td>
-    <%- transactions.forEach(function (element) {
+    <td>Rent</td>
+    <% transactions.forEach(function (element) {
       %> <td> <%= element.rent %> </td>
-    <%-}); %>
+    <%}); %>
   </tr>
   <tr>
-      <td>tentantFee</td>
-      <%- transactions.forEach(function (element) {
-        %> <td> <%= element.tentantFee %> </td>
-      <%-}); %>
-  </tr>
-  <tr>
-      <td>gas</td>
-      <%- transactions.forEach(function (element) {
-        %> <td> <%= element.gas %> </td>
-      <%-}); %>
-  </tr>
-  <tr>
-      <td>electricity</td>
-      <%- transactions.forEach(function (element) {
-        %> <td> <%= element.electricity %> </td>
-      <%-});%>
-  </tr>
-  <tr>
-      <td>appartment-construction</td>
-      <%- transactions.forEach(function (element) {
-        %> <td> <%= element.appartment-construction %> </td>
-      <%-});%>
-  </tr>
-  <tr>
-      <td>wifi</td>
-      <%- transactions.forEach(function (element) {
-        %> <td> <%= element.wifi %> </td>
-      <%-});%>
-  </tr>
-  <tr>
-      <td>community</td>
-      <%- transactions.forEach(function (element) {
-        %> <td> <%= element.community %> </td>
-      <%-});%>
-  </tr>
-  <tr>
-      <td>general-maintenance</td>
-      <%- transactions.forEach(function (element) {
-        %> <td> <%= element.general-maintenance %> </td>
-      <%-});%>
-  </tr>
+    <td>Tentant fees</td>
+    <% transactions.forEach(function (element) {
+      %> <td> <%= element.tentantFee %> </td>
+    <%}); %>
+</tr>
+<tr>
+    <td>Gas</td>
+    <% transactions.forEach(function (element) {
+      %> <td> <%= element.gas %> </td>
+    <%}); %>
+</tr>
+<tr>
+    <td>Electricity</td>
+    <% transactions.forEach(function (element) {
+      %> <td> <%= element.electricity %> </td>
+    <%});%>
+</tr>
+<tr>
+    <td>Appartment construction</td>
+    <% transactions.forEach(function (element) {
+      %> <td> <%= element.appartmentConstruction %> </td>
+    <%});%>
+</tr>
+<tr>
+    <td>Wifi</td>
+    <% transactions.forEach(function (element) {
+      %> <td> <%= element.wifi %> </td>
+    <%});%>
+</tr>
+<tr>
+    <td>Community</td>
+    <% transactions.forEach(function (element) {
+      %> <td> <%= element.community %> </td>
+    <%});%>
+</tr>
+<tr>
+    <td>General maintenance</td>
+    <% transactions.forEach(function (element) {
+      %> <td> <%= element.generalMaintenance %> </td>
+    <%});%>
+</tr>
 </table>
