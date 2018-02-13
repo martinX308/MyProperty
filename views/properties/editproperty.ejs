@@ -19,7 +19,7 @@
   <input id="cityEdit" type="text" name="city" value="<%= property.city %>">
   <label for="countryEdit">Country</label>
   <input id="countryEdit" type="text" name="country" value="<%= property.country %>">
-
+  
   <!-- <% if (typeof message !== "undefined") { %>
       <div class="error-message"><%= message %></div>
   <% } %> -->
@@ -27,6 +27,7 @@
   <br><br>
     <button type='submit'>Submit</button>
 </div>
+
 
 <br><br>
 
@@ -46,41 +47,24 @@
 
 
   <% property.accountingbook.forEach(function (element, index)  { %>
-
     <div class="accounting-row">
-      <div>
-        <select class="account-item" name="accountItem<%= index %>" value="<%= element.name %>">
-          <option value="value1" selected>Rent</option> 
-          <option value="value2">Tenant Fee</option>
-          <option value="value3">Gas</option>
-          <option value="value4">Electricity</option>
-          <option value="value5">Appartment construction</option>
-          <option value="value6">Wifi</option>
-          <option value="value7">Community</option>
-          <option value="value8">General maintenance</option>
-        </select>
-      </div>
-      <div>
-        <input type="number" name="value<%=index %>" value="<%= element.value %>">
-      </div>
-      <div>
-        <input type="date" name="date<%= index %>" value="<%= element.date.toString().slice(0,10)%>>
-      </div>
-    </div>
-  
+    <span><%= element.name %></span>
+    <span><%= element.value %></span>
+    <span><%= element.date.toString().slice(0,10)%></span>
+  </div>
   <% }); %>
 
     <div class="accounting-row">
       <div>
         <select name="accountItem" id="account-item">
-          <option value="value1" selected>Rent</option> 
-          <option value="value2">Tenant Fee</option>
-          <option value="value3">Gas</option>
-          <option value="value4">Electricity</option>
-          <option value="value5">Appartment construction</option>
-          <option value="value6">Wifi</option>
-          <option value="value7">Community</option>
-          <option value="value8">General maintenance</option>
+          <option value="rent" selected>Rent</option> 
+          <option value="tenantFee">Tenant Fee</option>
+          <option value="gas">Gas</option>
+          <option value="electricity">Electricity</option>
+          <option value="appartmentConstruction">Appartment construction</option>
+          <option value="wifi">Wifi</option>
+          <option value="community">Community</option>
+          <option value="generalMaintenance">General maintenance</option>
         </select>
       </div>
       <div>
@@ -90,6 +74,10 @@
         <input name="date" type="date" >
       </div>
     </div>
+
+    <% if (typeof message !== "undefined") { %>
+      <div><%= message %></div>
+    <% } %>
 
     <button type="submit" id="btn-add-record">Add New Record</button>
   </form>

@@ -58,6 +58,7 @@ router.get('/:id/edit', (req, res, next) => {
 
   Property.findById(propertyId, (err, property) => {
     if (err) { return next(err); }
+
     res.render('properties/editproperty', { property: property });
   });
 });
@@ -76,20 +77,18 @@ router.post('/:id/edit', (req, res, next) => {
     nr: req.body.streetnumber,
     zip: req.body.zip,
     city: req.body.city,
-    country: req.body.country,
-    accountingbook: []
+    country: req.body.country
   };
 
-  updates.accountingbook.push(newTransaction);
-
-  Property.findByIdAndUpdate(propertyId, updates, (err, property) => {
+  Property.findByIdAndUpdate(propertyId, { '$push': {'accountingbook': newTransaction}, '$set': updates }, (err, property) => {
     if (err) { return next(err); }
-    return res.redirect('/properties/my-properties');
   });
+  return res.redirect('/properties/my-properties');
 });
 
 router.get('/view/:id', (req, res, next) => {
   const propId = req.params.id;
+
   Property.findById(propId, 'accountingbook owner', (err, property, next) => {
     if (err) {
       return next(err);
@@ -102,7 +101,6 @@ router.get('/view/:id', (req, res, next) => {
     }
 
     const costTemplate = {
-      'month': '',
       'rent': 0,
       'tentantFee': 0,
       'gas': 0,
@@ -115,20 +113,15 @@ router.get('/view/:id', (req, res, next) => {
 
     const yearInput = 2017;
     const costArray = [];
-    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
-      'July', 'August', 'September', 'October', 'November', 'December'
-    ];
 
     for (let i = 0; i < 12; i++) { // for all months
       let month = Object.assign({}, costTemplate);
       month['month'] = monthNames[i];
       console.log(property.accountingbook.length);
-
       property.accountingbook.forEach(element => {
         if (element.date.getFullYear() === yearInput && element.date.getMonth() === i) {
           month[element.name] += element.value;
         }
-
         costArray.push(month);
       });
     }
