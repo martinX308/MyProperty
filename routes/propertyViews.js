@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
 
-// link property models
+// link property model
 const Property = require('../models/property');
-const User = require('../models/user');
 
+// get helper middelware
+const ensureloggedin = require('../helpers/ensureUserLoggedIn');
+const ensureOwner = require('../helpers/ensurePropertyOwner');
 
-router.get('/my-properties', (req, res, next) => {
+router.get('/my-properties', ensureloggedin, (req, res, next) => {
   const user = req.user; // how does the "global" user declaration work
 
   Property.find({owner: user._id}, (err, foundProperties) => {
@@ -18,13 +20,11 @@ router.get('/my-properties', (req, res, next) => {
   });
 });
 
-
-router.get('/create', (req, res, next) => {
+router.get('/create', ensureloggedin, (req, res, next) => {
   res.render('properties/newproperty');
 });
 
-
-router.post('/create', (req, res, next) => {
+router.post('/create', ensureloggedin, (req, res, next) => {
   const userId = req.user._id;
   const name = req.body.propertyname;
   const street = req.body.street;
@@ -56,17 +56,15 @@ router.post('/create', (req, res, next) => {
   });
 });
 
-
-router.get('/:id/edit', (req, res, next) => {
+router.get('/:id/edit', ensureloggedin, ensureOwner, (req, res, next) => {
   const propertyId = req.params.id;
-  
+
   Property.findById(propertyId, (err, property) => {
     if (err) { return next(err); }
-    
+
     res.render('properties/editproperty', { property: property });
   });
 });
-
 
 router.post('/:id/edit/property', (req, res, next) => {
   const propertyId = req.params.id;
@@ -84,11 +82,9 @@ router.post('/:id/edit/property', (req, res, next) => {
     if (err) { return next(err); }
   });
   res.redirect('/properties/' + propertyId + '/edit');
-  return;
 });
 
-
-router.post('/:id/edit/account', (req, res, next) => {
+router.post('/:id/edit/account', ensureOwner, (req, res, next) => {
   const propertyId = req.params.id;
 
   const newTransaction = {
@@ -131,7 +127,8 @@ router.post('/:idProperty/:idAccounting/delete', (req, res, next) => {
 });
 
 
-router.get('/view/:id', (req, res, next) => {
+router.get('/view/:id', ensureloggedin, ensureOwner, (req, res, next) => {
+
   const propId = req.params.id;
 
   Property.findById(propId, 'accountingbook owner', (err, property, next) => {
