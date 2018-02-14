@@ -43,3 +43,9 @@ h3 {}
 #column-headers div, .accounting-row span{
   width: 30%;
 }
+
+#map {
+  border: solid 2px red;
+  height: 500px;
+  width: 500px;
+}
