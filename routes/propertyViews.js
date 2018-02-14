@@ -35,7 +35,12 @@ router.post('/create', ensureloggedin, (req, res, next) => {
   const city = req.body.city;
   const country = req.body.country;
 
-  if (name === '' || street === '' || nr === '' || zip === '' || city === '' || country === '') {
+  let location = {
+    type: 'Point',
+    coordinates: [req.body.longitude, req.body.latitude]
+  };
+
+  if (name === '' || street === '' || nr === '' || zip === '' || city === '' || country === '' || location === '') {
     res.render('properties/newproperty', { message: 'Indicate all fields' });
     return;
   }
@@ -46,7 +51,8 @@ router.post('/create', ensureloggedin, (req, res, next) => {
     zip,
     city,
     country,
-    owner: userId
+    owner: userId,
+    location: location
   });
 
   newProperty.save((err) => {

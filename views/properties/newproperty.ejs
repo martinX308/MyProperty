@@ -16,6 +16,10 @@
   <label for="countryCreate">Country</label>
   <input id="countryCreate" type="text" name="country" placeholder="ES">
 
+  <label>Geolocation</label>
+  <input type="text" name="latitude" placeholder="Latitude" >
+  <input type="text" name="longitude" placeholder="Longitude">
+
   <% if (typeof message !== "undefined") { %>
     <div class="error-message"><%= message %></div>
   <% } %>
