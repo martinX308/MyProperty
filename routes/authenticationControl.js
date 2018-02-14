@@ -10,7 +10,7 @@ const bcrypt = require('bcrypt');
 const bcryptSalt = 10;
 
 router.get('/signup', (req, res) => {
-  if (user) {
+  if (req.user) {
     res.redirect('/properties/my-properties');
   }
   res.render('auth/signup');

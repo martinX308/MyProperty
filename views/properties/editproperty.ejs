@@ -3,6 +3,8 @@
 <h2>Edit your property</h2>
 
 <div id="basic-details-edit">
+    <h3> Your property master data</h3>
+
   <form action="/properties/<%= property._id %>/edit/property" method="POST" id="form-container">
 
   <label for="propertyname">Property Name</label>
@@ -34,7 +36,7 @@
   <% }); %>
 
   <p> Add new tenants:</p>
-  <form>
+  <form action="/properties/<%= property._id %>/edit/createtenant" method="POST">
     <label for= "tenant-username">Tenant username</label>
     <input id="tenant-username" name="tenantUsername" type="text" placeholder="unique username">
     <label for= "tenant-mail">Tenant mail</label>
@@ -47,6 +49,7 @@
 
 
 <div id="accounting-book">
+    <h3> Your property records</h3>
 
   <div id="column-headers">
     <div>
