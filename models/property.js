@@ -21,6 +21,7 @@ const propertySchema = new Schema({
     type: ObjectId,
     ref: 'User'
   },
+  location: { type: { type: String }, coordinates: [Number] },
   tenants: [{
     type: ObjectId,
     ref: 'User'}],
@@ -29,6 +30,8 @@ const propertySchema = new Schema({
   timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 }
 );
+
+propertySchema.index({ location: '2dsphere' });
 
 const Prop = mongoose.model('Property', propertySchema);
 
