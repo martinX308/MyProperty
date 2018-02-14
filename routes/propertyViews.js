@@ -8,8 +8,9 @@ const Property = require('../models/property');
 const ensureloggedin = require('../helpers/ensureUserLoggedIn');
 const ensureOwner = require('../helpers/ensurePropertyOwner');
 
+// --- show all properties for logged in user
 router.get('/my-properties', ensureloggedin, (req, res, next) => {
-  const user = req.user; // how does the "global" user declaration work
+  const user = req.user; // how does the "global" user declaration work?
 
   Property.find({owner: user._id}, (err, foundProperties) => {
     if (err) {
@@ -24,6 +25,7 @@ router.get('/create', ensureloggedin, (req, res, next) => {
   res.render('properties/newproperty');
 });
 
+// --- create new property for logged in user
 router.post('/create', ensureloggedin, (req, res, next) => {
   const userId = req.user._id;
   const name = req.body.propertyname;
@@ -56,6 +58,7 @@ router.post('/create', ensureloggedin, (req, res, next) => {
   });
 });
 
+// --- show edit form for single property
 router.get('/:id/edit', ensureloggedin, ensureOwner, (req, res, next) => {
   const propertyId = req.params.id;
 
@@ -66,9 +69,9 @@ router.get('/:id/edit', ensureloggedin, ensureOwner, (req, res, next) => {
   });
 });
 
+// --- update single property master data
 router.post('/:id/edit/property', (req, res, next) => {
   const propertyId = req.params.id;
-
   const updates = {
     name: req.body.propertyname,
     street: req.body.street,
@@ -84,6 +87,7 @@ router.post('/:id/edit/property', (req, res, next) => {
   res.redirect('/properties/' + propertyId + '/edit');
 });
 
+// ---update single property accountingbook with new transaction
 router.post('/:id/edit/account', ensureOwner, (req, res, next) => {
   const propertyId = req.params.id;
 
@@ -107,18 +111,18 @@ router.post('/:id/edit/account', ensureOwner, (req, res, next) => {
   res.redirect('/properties/' + propertyId + '/edit');
 });
 
-
+// --- update single property accountingbook delete transaction
 router.post('/:idProperty/:idAccounting/delete', (req, res, next) => {
   const propertyId = req.params.idProperty;
   const accountingRowId = req.params.idAccounting;
 
   Property.findById(propertyId, (err, property) => {
     if (err) { return next(err); }
-    property.accountingbook.pull({"_id": accountingRowId});
+    property.accountingbook.pull({'_id': accountingRowId});
 
     property.save(function (err) {
-      if (err) { 
-        return next(err) ;
+      if (err) {
+        return next(err);
       }
     });
   });
@@ -126,11 +130,9 @@ router.post('/:idProperty/:idAccounting/delete', (req, res, next) => {
   res.redirect('/properties/' + propertyId + '/edit');
 });
 
-
+// --- view single property by id
 router.get('/view/:id', ensureloggedin, ensureOwner, (req, res, next) => {
-
   const propId = req.params.id;
-
   Property.findById(propId, 'accountingbook owner', (err, property, next) => {
     if (err) {
       return next(err);
@@ -152,7 +154,7 @@ router.get('/view/:id', ensureloggedin, ensureOwner, (req, res, next) => {
       'general-maintenance': 0
     };
 
-    const yearInput = 2017;
+    const yearInput = 2017;// Fixed year > adjust to input
     const costArray = [];
     const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
@@ -163,19 +165,9 @@ router.get('/view/:id', ensureloggedin, ensureOwner, (req, res, next) => {
         if (element.date.getFullYear() === yearInput && element.date.getMonth() === i) {
           month[element.name] += element.value;
         }
-        // costArray.push(month);
       });
       costArray.push(month);
     }
-
-    // const aggregationMonth = property.accountingbook.map(element =>
-    //   element.date.map(x => [x.getMonth(), x.getYear()]));
-
-    // const aggregationType = aggregationMonth.reduce((acc, transaction) => {
-    //   let selectedYear = transaction.date[1];
-    //   acc[selectedYear][transaction.type][transaction.name] += transaction.value;
-    //   return acc;
-    // }, {});
 
     res.render('properties/viewproperty', {transactions: costArray, timeline: monthNames});
   });

@@ -7,7 +7,6 @@
 
   <label for="propertyname">Property Name</label>
   <input id="propertyname" type="text" name="propertyname" value="<%= property.name %>">
-  <br><br>
   <p>Property location:</p>
   <label for="streetEdit">Street</label>
   <input id="streetEdit" type="text" name="street" value="<%= property.street %>">
@@ -20,13 +19,10 @@
   <label for="countryEdit">Country</label>
   <input id="countryEdit" type="text" name="country" value="<%= property.country %>">
 
-  <br><br>
     <button type='submit'>Submit</button>
   </form>
 </div>
 
-
-<br><br>
 
 <div id="accounting-book">
 
@@ -79,7 +75,6 @@
     <button type="submit" id="btn-add-record">Add New Record</button>
   </form>
 
-<br><br>
 
   <% if (typeof message !== "undefined") { %>
     <div><%= message %></div>

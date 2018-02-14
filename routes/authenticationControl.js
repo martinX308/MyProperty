@@ -10,6 +10,9 @@ const bcrypt = require('bcrypt');
 const bcryptSalt = 10;
 
 router.get('/signup', (req, res) => {
+  if (user) {
+    res.redirect('/properties/my-properties');
+  }
   res.render('auth/signup');
 });
 
@@ -58,6 +61,9 @@ router.post('/signup', (req, res, next) => {
 
 // login ------------------- with passport
 router.get('/', (req, res, next) => {
+  if (req.user) {
+    res.redirect('/properties/my-properties');
+  }
   res.render('auth/login', {'message': req.flash('error')});
 });
 
