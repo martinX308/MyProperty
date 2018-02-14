@@ -23,6 +23,28 @@
   </form>
 </div>
 
+<div id="property-tenants">
+  <h3> Your listed tenants</h3>
+
+  <% property.tenants.forEach(function (tenant, index)  { %>
+    <div class="property-row">
+      <span><%= tenant.username %></span>
+      <span><%= tenant.email %></span>
+    </div>
+  <% }); %>
+
+  <p> Add new tenants:</p>
+  <form>
+    <label for= "tenant-username">Tenant username</label>
+    <input id="tenant-username" name="tenantUsername" type="text" placeholder="unique username">
+    <label for= "tenant-mail">Tenant mail</label>
+    <input id="tenant-mail" name="tenantmail" type="text" placeholder="Email" >
+    <label for= "tenant-pw">Tenant pw</label>
+    <input id="tenant-pw" name="tenantpw" type="text" placeholder="default password" >
+    <button type="submit">Create new tenant</button>
+  </form>
+</div>
+
 
 <div id="accounting-book">
 
