@@ -21,6 +21,9 @@ const propertySchema = new Schema({
     type: ObjectId,
     ref: 'User'
   },
+  tenants: [{
+    type: ObjectId,
+    ref: 'User'}],
   accountingbook: [transactionSchema]
 }, {
   timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }

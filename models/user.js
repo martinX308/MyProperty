@@ -6,7 +6,8 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   username: String,
   email: String,
-  password: String
+  password: String,
+  role: {type: String, enum: ['Owner', 'Tenant'], default: 'Owner'}
 }, {
   timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' }
 });
