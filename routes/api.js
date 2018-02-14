@@ -53,7 +53,7 @@ router.get('/api/draw-my-chart/:id', function (req, res, next) {
 
       for (const key in month) {
         if (month[key] < 0) {
-          monthBalance.cost += month[key];
+          monthBalance.cost += month[key] * (-1);
         } else if (month[key] > 0) {
           monthBalance.revenue += month[key];
         }
