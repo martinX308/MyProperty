@@ -7,6 +7,7 @@ const Property = require('../models/property');
 // get helper middelware
 const ensureloggedin = require('../helpers/ensureUserLoggedIn');
 const ensureOwner = require('../helpers/ensurePropertyOwner');
+const createUser = require('../helpers/createUser');
 
 // --- show all properties for logged in user
 router.get('/my-properties', ensureloggedin, (req, res, next) => {
@@ -70,8 +71,8 @@ router.get('/:id/edit', ensureloggedin, ensureOwner, (req, res, next) => {
 
   Property.findById(propertyId, (err, property) => {
     if (err) { return next(err); }
-
-    res.render('properties/editproperty', { property: property });
+    const tenantArray = property.populate('tenants').tenants;
+    res.render('properties/editproperty', { property: property, tenants: tenantArray });
   });
 });
 
@@ -93,6 +94,34 @@ router.post('/:id/edit/property', (req, res, next) => {
   res.redirect('/properties/' + propertyId + '/edit');
 });
 
+// ---update single property accountingbook with new tenant
+router.post('/:id/edit/createtenant', ensureOwner, (req, res, next) => {
+  const propertyId = req.params.id;
+  const newTenant = {
+    username: req.body.tenantUsername,
+    password: req.body.tenantpw,
+    email: req.body.tenantmail,
+    role: 'Tenant'
+  };
+
+  if (newTenant.username === '' || newTenant.password === '' || newTenant.email === '') {
+    Property.findById(propertyId, (err, property) => {
+      if (err) {
+        return next(err);
+      }
+      res.render('properties/editproperty', { property: property, message: 'All fields must be filled before submitting a new record' });
+    });
+    return;
+  }
+
+  createUser(newTenant, (resultMessage) => {
+    Property.findByIdAndUpdate(propertyId, { '$push': { 'tenants': resultMessage.user } }, (err, property) => {
+      if (err) { return next(err); }
+      res.redirect('/properties/' + propertyId + '/edit');
+    });
+  });
+});
+
 // ---update single property accountingbook with new transaction
 router.post('/:id/edit/account', ensureOwner, (req, res, next) => {
   const propertyId = req.params.id;
@@ -106,7 +135,7 @@ router.post('/:id/edit/account', ensureOwner, (req, res, next) => {
   if (newTransaction.date === '' || newTransaction.value === '') {
     Property.findById(propertyId, (err, property) => {
       if (err) { return next(err); }
-      res.render('properties/editproperty', { property: property, message: 'All files must be filled before submitting a new record' });
+      res.render('properties/editproperty', { property: property, message: 'All fields must be filled before submitting a new record' });
     });
     return;
   }
