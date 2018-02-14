@@ -62,11 +62,23 @@ router.post('/create', ensureloggedin, (req, res, next) => {
 // --- show edit form for single property
 router.get('/:id/edit', ensureloggedin, ensureOwner, (req, res, next) => {
   const propertyId = req.params.id;
+  const propertyPopulated = Property.findById(propertyId).populate('tenants');
+
+  // propertyPopulated.exec((err, property) => {
+  //   if (err) { return next(err); }
+  //   res.render('properties/editproperty', { property: property, tenants: property.tenants });
+  // });
 
   Property.findById(propertyId, (err, property) => {
     if (err) { return next(err); }
-    const tenantArray = property.populate('tenants').tenants;
-    res.render('properties/editproperty', { property: property, tenants: tenantArray });
+
+    Property.findById(propertyId)
+      .populate('tenants')
+      .exec((err, prop) => {
+        if (err) { return next(err); }
+        console.log(prop.tenants);
+        res.render('properties/editproperty', { property: prop });
+      });
   });
 });
 
