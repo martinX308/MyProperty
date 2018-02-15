@@ -1,7 +1,7 @@
 
 <h2>Create a new property</h2>
 
-<form action="/properties/create" method="POST" id="form-container">
+<form action="/properties/create" method="POST" id="form-container" enctype="multipart/form-data">
   <label for="propertyname">Property Name</label>
   <input id="propertyname" type="text" name="propertyname" placeholder="new property">
 
@@ -28,6 +28,9 @@
   <input type="text" name="latitude" id="latitude" value="" >
   <input type="text" name="longitude" id="longitude" value="" >
 
+  <input type="text" name="photo_name">
+  <input type="file" name="photo">
+
 <!-- To use optionally to store place_id into the Property model
 <input type="text" name="place_id" id="location_id" placeholder="Location Ids" value="" ><br> -->
 
@@ -35,7 +38,7 @@
     <div class="error-message"><%= message %></div>
   <% } %>
 
-  <button>Submit</button>
+  <button type="submit" value="Save">Submit</button>
 </form>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

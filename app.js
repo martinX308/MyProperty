@@ -13,6 +13,7 @@ const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const flash = require('connect-flash');
 const configurePassport = require('./helpers/passport');
+const multer  = require('multer');
 
 // -- require routes
 const authRoute = require('./routes/authenticationControl');

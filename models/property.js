@@ -10,6 +10,14 @@ const transactionSchema = new Schema({
   value: Number
 });
 
+const pictureSchema = new Schema({
+  picture_name: String,
+  path: String,
+  originalName: String
+}, {
+  timestamps: { createdAt: "created_at", updatedAt: "updated_at" }
+});
+
 const propertySchema = new Schema({
   name: String,
   street: String,
@@ -22,6 +30,7 @@ const propertySchema = new Schema({
     ref: 'User'
   },
   location: { type: { type: String }, coordinates: [Number] },
+  propertyPic: pictureSchema,
   tenants: [{
     type: ObjectId,
     ref: 'User'}],

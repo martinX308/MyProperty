@@ -1,6 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
+// packages to upload pictures from the user
+const multer  = require('multer');
+const upload = multer({ dest: './public/uploads/' });
+
 // link property, post model
 const Property = require('../models/property');
 const Post = require('../models/postings');
@@ -33,8 +37,23 @@ router.get('/create', ensureloggedin, (req, res, next) => {
   res.render('properties/newproperty');
 });
 
+
+// --- upload a picture
+// router.post('/create/upload', upload.single('photo'), function(req, res){
+
+//   const pic = new Picture({
+//     name: req.body.name,
+//     path: `/uploads/${req.file.filename}`,
+//     originalName: req.file.originalname
+//   });
+
+//   pic.save((err) => {
+//       res.redirect('/');
+//   });
+// });
+
 // --- create new property for logged in user
-router.post('/create', ensureloggedin, (req, res, next) => {
+router.post('/create', ensureloggedin, upload.single('photo'), (req, res, next) => {
   const userId = req.user._id;
   const name = req.body.propertyname;
   const street = req.body.street;
@@ -42,6 +61,12 @@ router.post('/create', ensureloggedin, (req, res, next) => {
   const zip = req.body.zip;
   const city = req.body.city;
   const country = req.body.country;
+
+  const newPicture = {
+    picture_name : req.body.photo_name,
+    path : `/uploads/${req.file.filename}`,
+    originalName : req.file.originalname
+  };
 
   let location = {
     type: 'Point',
@@ -60,7 +85,8 @@ router.post('/create', ensureloggedin, (req, res, next) => {
     city,
     country,
     owner: userId,
-    location: location
+    location: location,
+    propertyPic: newPicture
   });
 
   newProperty.save((err) => {
@@ -94,6 +120,7 @@ router.get('/:id/edit', ensureloggedin, ensureOwner, (req, res, next) => {
       });
   });
 });
+
 
 // --- update single property master data
 router.post('/:id/edit/property', (req, res, next) => {
