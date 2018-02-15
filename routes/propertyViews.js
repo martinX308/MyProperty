@@ -41,7 +41,7 @@ router.post('/create', ensureloggedin, (req, res, next) => {
     coordinates: [req.body.longitude, req.body.latitude]
   };
 
-  if (name === '' || street === '' || nr === '' || zip === '' || city === '' || country === '' || location === '') {
+  if (name === '' || street === '' || nr === '' || zip === '' || city === '' || country === '' || location.coordinates[0] === '' || location.coordinates[1] === '' ) {
     res.render('properties/newproperty', { message: 'Indicate all fields' });
     return;
   }
