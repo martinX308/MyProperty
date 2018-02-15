@@ -61,7 +61,10 @@ var ironhackBCN = {
     console.log('Browser does not support geolocation.');
   }
 
-
+  // Geocodificación API service
+  
+  // var googleAddres = document.getElementById
+  // google-addres
 
 
 }

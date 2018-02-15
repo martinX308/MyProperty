@@ -16,9 +16,22 @@
   <label for="countryCreate">Country</label>
   <input id="countryCreate" type="text" name="country" placeholder="ES">
 
+<br><br>
+
   <label>Geolocation</label>
   <input type="text" name="latitude" placeholder="Latitude" >
   <input type="text" name="longitude" placeholder="Longitude">
+
+<br><br>
+
+<input placeholder="Enter Area name to populate Latitude and Longitude" name="address" onFocus="startAutocomplete()" id="locality" ><br>
+<input type="text" name="city" id="city" placeholder="City" value="" ><br>
+<input type="text" name="latitude" id="latitude" placeholder="Latitude" value="" ><br>
+<input type="text" name="longitude" id="longitude" placeholder="Longitude" value="" ><br>
+<input type="text" name="place_id" id="location_id" placeholder="Location Ids" value="" ><br>
+
+<br><br>
+
 
   <% if (typeof message !== "undefined") { %>
     <div class="error-message"><%= message %></div>
@@ -26,3 +39,7 @@
 
   <button>Submit</button>
 </form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAM3SVtttv2pqI2Z9vufnl63sE0eblMRnM&libraries=places"></script>
+<script type="text/javascript" src="/javascripts/autocomplete-address.js"></script>
