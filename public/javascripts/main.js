@@ -7,6 +7,7 @@ function main () {
 
   function requestGraphData () {
     const id = window.location.href.slice(38);
+
     axios.get('/api/draw-my-chart/' + id)
       .then(result => {
         console.log('result:' + result.data);
