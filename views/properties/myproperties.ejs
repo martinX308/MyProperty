@@ -5,6 +5,10 @@
   %>
   <div>
     <p>Property:<%= element.name %> Address: <%= element.street %>, <%= element.nr %> (<%= element.zip %>,<%= element.city %>,<%= element.country %>)</p>
+    <div class="location_stats">
+      <span><%= element.location.coordinates[0] %></span><br>
+      <span><%= element.location.coordinates[1] %></span>
+    </div>
     <button><a href="/properties/<%=element._id%>/edit">Edit property</a></button>
     <button><a href="/properties/view/<%=element._id%>">View property</a></button>
     <button><a href ="/properties/<%= element._id %>/posts/show/">Show communication to tenants on this property</a></button>
