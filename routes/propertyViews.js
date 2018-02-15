@@ -1,8 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-// link property model
+// link property, post model
 const Property = require('../models/property');
+const Post = require('../models/postings');
+const User = require('../models/user');
 
 // get helper middelware
 const ensureloggedin = require('../helpers/ensureUserLoggedIn');
@@ -12,6 +14,11 @@ const createUser = require('../helpers/createUser');
 // --- show all properties for logged in user
 router.get('/my-properties', ensureloggedin, (req, res, next) => {
   const user = req.user; // how does the "global" user declaration work?
+
+  if (user.role === 'Tenant') {
+    res.redirect('/my-rent');
+    return;
+  }
 
   Property.find({owner: user._id}, (err, foundProperties) => {
     if (err) {
@@ -217,6 +224,39 @@ router.get('/view/:id', ensureloggedin, ensureOwner, (req, res, next) => {
     }
 
     res.render('properties/viewproperty', {transactions: costArray, timeline: monthNames});
+  });
+});
+
+// show all posts
+router.get('/:propertyId/posts/show/', (req, res, next) => {
+  Post.find({propertyId: req.params.propertyId}, 'post user_name created_at').sort({ created_at: -1 }).exec((err, posting, next) => {
+    if (err) { return next(err); }
+    console.log(posting);
+    res.render('tenant/communication', {posts: posting, propertyId: req.params.propertyId, role: 'properties'});
+  });
+});
+
+// create posts
+router.post('/:userId/posts/new/:propertyId', (req, res, next) => {
+  const userId = req.params.userId;
+
+  User.findById(userId).exec((err, user) => {
+    if (err) { return next(err); }
+
+    const newPost = new Post({
+      user_id: user._id,
+      user_name: user.username,
+      post: req.body.postText,
+      propertyId: req.params.propertyId
+    });
+
+    newPost.save((err) => {
+      if (err) {
+        res.render('tenant/communication', {errorMessage: err.errors.post.message});
+      } else {
+        res.redirect('/properties/my-properties');
+      }
+    });
   });
 });
 

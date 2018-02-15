@@ -7,6 +7,8 @@ function main () {
 
   function requestGraphData () {
     const id = window.location.href.slice(38);
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     axios.get('/api/draw-my-chart/' + id)
       .then(result => {
