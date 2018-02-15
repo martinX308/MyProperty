@@ -20,12 +20,14 @@ function main () {
               { label: 'monthly cost',
                 fillColor: 'rgba(220,220,220,0.2)',
                 strokeColor: 'rgba(220,220,220,1)',
-                data: result.data.yArrayCost
+                data: result.data.yArrayCost,
+                backgroundColor: 'orange'
               },
               { label: 'monthly revenue',
                 fillColor: 'rgba(151,187,205,0.2)',
                 strokeColor: 'rgba(151,187,205,1)',
-                data: result.data.yArrayRev
+                data: result.data.yArrayRev,
+                backgroundColor: 'yellow'
               }
             ]
           },

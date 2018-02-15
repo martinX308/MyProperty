@@ -48,7 +48,7 @@ router.post('/create', ensureloggedin, (req, res, next) => {
     coordinates: [req.body.latitude, req.body.longitude]
   };
 
-  if (name === '' || street === '' || nr === '' || zip === '' || city === '' || country === '' || location.coordinates[0] === '' || location.coordinates[1] === '' ) {
+  if (name === '' || street === '' || nr === '' || zip === '' || city === '' || country === '' || location.coordinates[0] === '' || location.coordinates[1] === '') {
     res.render('properties/newproperty', { message: 'Indicate all fields' });
     return;
   }
@@ -134,10 +134,19 @@ router.post('/:id/edit/createtenant', ensureOwner, (req, res, next) => {
   }
 
   createUser(newTenant, (resultMessage) => {
-    Property.findByIdAndUpdate(propertyId, { '$push': { 'tenants': resultMessage.user } }, (err, property) => {
-      if (err) { return next(err); }
-      res.redirect('/properties/' + propertyId + '/edit');
-    });
+    if (resultMessage.status === true) {
+      Property.findByIdAndUpdate(propertyId, { '$push': { 'tenants': resultMessage.user } }, (err, property) => {
+        if (err) { return next(err); }
+        res.redirect('/properties/' + propertyId + '/edit');
+      });
+    } else {
+      console.log(resultMessage.message);
+
+      Property.findById(propertyId, (err, property) => {
+        if (err) { return next(err); }
+        res.render('properties/editproperty', {property: property, message: resultMessage.message});
+      });
+    }
   });
 });
 
