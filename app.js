@@ -18,6 +18,7 @@ const configurePassport = require('./helpers/passport');
 const authRoute = require('./routes/authenticationControl');
 const propRoute = require('./routes/propertyViews');
 const apiRoute = require('./routes/api');
+const tenantRoute = require('./routes/tenantViews');
 
 const app = express();
 
@@ -70,6 +71,7 @@ app.use(function (req, res, next) {
 app.use('/', authRoute);
 app.use('/properties', propRoute);
 app.use('/', apiRoute);
+app.use('/', tenantRoute);
 
 // -- 404 and error handler
 

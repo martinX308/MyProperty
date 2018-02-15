@@ -62,17 +62,18 @@ router.post('/signup', (req, res, next) => {
 // login ------------------- with passport
 router.get('/', (req, res, next) => {
   if (req.user) {
-    res.redirect('/properties/my-properties');
+    (req.user.role === 'Owner') ? res.redirect('/properties/my-properties') : res.redirect('/my-rent');
   }
   res.render('auth/login', {'message': req.flash('error')});
 });
 
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/properties/my-properties',
-  failureRedirect: '/', // adjust
+  failureRedirect: '/', // flash shows error message
   failureFlash: true,
   passReqToCallback: true
-}));
+}), function (req, res) {
+  req.user.role === 'Tenant' ? res.redirect('/my-rent') : res.redirect('/properties/my-properties');
+});
 
 // logout
 router.get('/logout', (req, res) => {
