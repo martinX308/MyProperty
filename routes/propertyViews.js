@@ -38,7 +38,7 @@ router.post('/create', ensureloggedin, (req, res, next) => {
 
   let location = {
     type: 'Point',
-    coordinates: [req.body.longitude, req.body.latitude]
+    coordinates: [req.body.latitude, req.body.longitude]
   };
 
   if (name === '' || street === '' || nr === '' || zip === '' || city === '' || country === '' || location.coordinates[0] === '' || location.coordinates[1] === '' ) {

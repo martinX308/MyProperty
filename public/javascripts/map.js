@@ -1,38 +1,27 @@
 function startMap() {
 
-// --- set up center for map
-var ironhackBCN = {
-    lat: 41.3977381,
-    lng: 2.190471916};
-
 // --- Map initialization
     var map = new google.maps.Map(
     document.getElementById('map'),
-    {
-      zoom: 15,
-      // center: ironhackBCN
-    }
-  );
+      {
+        zoom: 13,
+      }
+    );
 
- // Add a marker for Ironhack Barcelona
-  var IronHackBCNMarker = new google.maps.Marker({
-    position: {
-      lat: ironhackBCN.lat,
-      lng: ironhackBCN.lng
-    },
-    map: map,
-    title: "Barcelona Campus"
-  });
-
-// --- add a new random marker
-  var myMarker = new google.maps.Marker({
+// --- Put a marker on the map for every property belonging to the user
+  var locationStats = document.getElementsByClassName('location_stats');
+  for (var i=0; i < locationStats.length; i++) {
+    let latitude = parseFloat(locationStats[i].childNodes[1].innerText);
+    let longitude = parseFloat(locationStats[i].childNodes[4].innerText);
+    let marker = new google.maps.Marker({
       position: {
-      lat: 30.3977381,
-      lng: 4.190471916
+        lat: latitude,
+        lng: longitude
       },
-    map: map,
-    title: "I'm here"
-  });
+      map: map,
+      title: "Property"
+    });
+  }
 
 // --- user geocalization
   if (navigator.geolocation) {
@@ -61,14 +50,7 @@ var ironhackBCN = {
     console.log('Browser does not support geolocation.');
   }
 
-  // Geocodificación API service
-  
-  // var googleAddres = document.getElementById
-  // google-addres
-
 
 }
-
-
 
 startMap();
