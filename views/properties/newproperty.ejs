@@ -4,34 +4,32 @@
 <form action="/properties/create" method="POST" id="form-container">
   <label for="propertyname">Property Name</label>
   <input id="propertyname" type="text" name="propertyname" placeholder="new property">
+
   <p>property location:</p>
+  <label for="enterAddress">Address</label>
+  <input placeholder="Write and select address among dropdown, enter pressing tab key" name="address" onFocus="startAutocomplete()" id="locality" ><br>
+
   <label for="streetCreate">Street</label>
   <input id="streetCreate" type="text" name="street" placeholder="your street">
+
   <label for="streetnrCreate">Number</label>
   <input id="streetnrCreate" type="number" name="streetnr" placeholder="your street number">
+
   <label for="zipCreate">ZIP Code</label>
   <input id="zipCreate" type="text" name="zip" placeholder="your zip code">
+
   <label for="cityCreate">City</label>
   <input id="cityCreate" type="text" name="city" placeholder="Barcelona">
+
   <label for="countryCreate">Country</label>
   <input id="countryCreate" type="text" name="country" placeholder="ES">
 
-<br><br>
-
   <label>Geolocation</label>
-  <input type="text" name="latitude" placeholder="Latitude" >
-  <input type="text" name="longitude" placeholder="Longitude">
+  <input type="text" name="latitude" id="latitude" value="" >
+  <input type="text" name="longitude" id="longitude" value="" >
 
-<br><br>
-
-<input placeholder="Enter Area name to populate Latitude and Longitude" name="address" onFocus="startAutocomplete()" id="locality" ><br>
-<input type="text" name="city" id="city" placeholder="City" value="" ><br>
-<input type="text" name="latitude" id="latitude" placeholder="Latitude" value="" ><br>
-<input type="text" name="longitude" id="longitude" placeholder="Longitude" value="" ><br>
-<input type="text" name="place_id" id="location_id" placeholder="Location Ids" value="" ><br>
-
-<br><br>
-
+<!-- To use optionally to store place_id into the Property model
+<input type="text" name="place_id" id="location_id" placeholder="Location Ids" value="" ><br> -->
 
   <% if (typeof message !== "undefined") { %>
     <div class="error-message"><%= message %></div>
