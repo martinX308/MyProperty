@@ -12,7 +12,11 @@ html {
 
 /* ---- typography ---- */
 
-body {}
+body {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  padding:0;
+  margin:0;
+}
 
 h1 {}
 
@@ -24,6 +28,47 @@ h3 {}
 
 
 /* ---- layout ---- */
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  height:3em;
+  padding:0.5em;
+  transition: .3s;
+  display: flex;
+  overflow: initial;
+}
+
+
+.navbar ul li{
+  list-style:none;
+  display:inline-block;
+  margin-right: 20px;
+  border-radius:5px;
+}
+
+.navbar ul li a{
+  color:#0066cc ;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: .3s;
+}
+
+
+
+.main-wrapper{
+  width:100%;
+  height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-color: #0066cc;
+
+}
+
+.content-wrapper{
+  margin:4em 1em;
+  color:white;
+}
 
 #site-header {}
 

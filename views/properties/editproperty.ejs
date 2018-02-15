@@ -30,8 +30,8 @@
 
   <% property.tenants.forEach(function (tenant, index)  { %>
     <div class="property-row">
-      <span><%= tenant.username %></span>
-      <span><%= tenant.email %></span>
+      <span><%= index+1 %>. Tenant username: <%= tenant.username %></span>
+      <span> tenant email: <%= tenant.email %></span>
     </div>
   <% }); %>
 
