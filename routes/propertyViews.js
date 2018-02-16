@@ -38,20 +38,6 @@ router.get('/create', ensureloggedin, (req, res, next) => {
 });
 
 
-// --- upload a picture
-// router.post('/create/upload', upload.single('photo'), function(req, res){
-
-//   const pic = new Picture({
-//     name: req.body.name,
-//     path: `/uploads/${req.file.filename}`,
-//     originalName: req.file.originalname
-//   });
-
-//   pic.save((err) => {
-//       res.redirect('/');
-//   });
-// });
-
 // --- create new property for logged in user
 router.post('/create', ensureloggedin, upload.single('photo'), (req, res, next) => {
   const userId = req.user._id;

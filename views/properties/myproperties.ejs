@@ -4,6 +4,9 @@
    properties.forEach(function (element){
   %>
   <div>
+    <% if(element.propertyPic) { %>
+    <img src="<%= element.propertyPic.path %>" alt="<%= element.propertyPic.originalName %>" />
+    <% }; %>
     <p>Property:<%= element.name %> Address: <%= element.street %>, <%= element.nr %> (<%= element.zip %>,<%= element.city %>,<%= element.country %>)</p>
     <div class="location_stats">
       <span><%= element.location.coordinates[0] %></span><br>
