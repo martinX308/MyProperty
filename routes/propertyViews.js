@@ -49,7 +49,6 @@ router.post('/create', ensureloggedin, upload.single('photo'), (req, res, next) 
   const country = req.body.country;
 
   const newPicture = {
-    picture_name : req.body.photo_name,
     path : `/uploads/${req.file.filename}`,
     originalName : req.file.originalname
   };
@@ -113,7 +112,6 @@ router.post('/:id/edit/property', upload.single('photo'), (req, res, next) => {
   const propertyId = req.params.id;
 
   const newPicture = {
-    picture_name : req.body.photo_name,
     path : `/uploads/${req.file.filename}`,
     originalName : req.file.originalname
   };
