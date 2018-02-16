@@ -60,12 +60,23 @@
 
   <p class="myproperty-view-header"> Add new tenants:</p>
   <form class ="myproperty-view-element" action="/properties/<%= property._id %>/edit/createtenant" method="POST">
-    <label for= "tenant-username">Tenant username</label>
-    <input id="tenant-username" name="tenantUsername" type="text" placeholder="unique username">
-    <label for= "tenant-mail">Tenant mail</label>
-    <input id="tenant-mail" name="tenantmail" type="text" placeholder="Email" >
-    <label for= "tenant-pw">Tenant pw</label>
-    <input id="tenant-pw" name="tenantpw" type="text" placeholder="default password" >
+    <div class="one-col flex-row">
+      <label for= "tenant-username">Tenant username</label>
+      <input id="tenant-username" name="tenantUsername" type="text" placeholder="unique username">
+    </div>
+    <div class="one-col flex-row">
+      <label for= "tenant-mail">Tenant mail</label>
+      <input id="tenant-mail" name="tenantmail" type="text" placeholder="Email" >
+    </div>
+    <div class="one-col flex-row">
+      <label for= "tenant-mail">Tenant mail</label>
+      <input id="tenant-mail" name="tenantmail" type="text" placeholder="Email" >
+    </div>
+    <div class="one-col flex-row">
+      <label for= "tenant-pw">Tenant pw</label>
+      <input id="tenant-pw" name="tenantpw" type="text" placeholder="default password" >
+
+    </div>
     <button class ="call-button" type="submit">Create new tenant</button>
   </form>
 </div>
@@ -87,7 +98,7 @@
     <div class="accounting-row">
     <span><%= element.name %></span>
     <span><%= element.value %></span>
-    <span><%= element.date.toString().slice(0,10)%></span>
+    <span><%= element.date.toString().slice(4,10)%></span>
     <form action="/properties/<%= property._id %>/<%= element._id %>/delete" method="POST">
       <button class ="call-button" type="submit">Delete row</button>
     </form>
