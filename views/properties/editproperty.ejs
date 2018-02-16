@@ -5,7 +5,14 @@
 <div id="basic-details-edit">
     <h3> Your property master data</h3>
 
-  <form class="myproperty-view-element" action="/properties/<%= property._id %>/edit/property" method="POST" id="form-container">
+  <form class="myproperty-view-element" action="/properties/<%= property._id %>/edit/property" method="POST" id="form-container" enctype="multipart/form-data">
+
+  <% if(property.propertyPic) { %>
+      <img src="<%= property.propertyPic.path %>" alt="<%= property.propertyPic.originalName %>" />
+  <% }; %>
+  <p>Change picture</p>
+  <input type="text" name="photo_name">
+  <input type="file" name="photo">
 
   <label for="propertyname">Property Name</label>
   <input id="propertyname" type="text" name="propertyname" value="<%= property.name %>">

@@ -109,15 +109,23 @@ router.get('/:id/edit', ensureloggedin, ensureOwner, (req, res, next) => {
 
 
 // --- update single property master data
-router.post('/:id/edit/property', (req, res, next) => {
+router.post('/:id/edit/property', upload.single('photo'), (req, res, next) => {
   const propertyId = req.params.id;
+
+  const newPicture = {
+    picture_name : req.body.photo_name,
+    path : `/uploads/${req.file.filename}`,
+    originalName : req.file.originalname
+  };
+
   const updates = {
     name: req.body.propertyname,
     street: req.body.street,
     nr: req.body.streetnumber,
     zip: req.body.zip,
     city: req.body.city,
-    country: req.body.country
+    country: req.body.country,
+    propertyPic: newPicture
   };
 
   Property.findByIdAndUpdate(propertyId, updates, (err, property) => {
