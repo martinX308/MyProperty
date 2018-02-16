@@ -12,20 +12,21 @@
 
 <body>
   <div class="main-wrapper">
-    <%if (user) { %>
-      <nav class="navbar">
+   
+    <nav class="navbar">
         <p class= "logo">[i]</p>
+        <%if (user) { %>
         <ul>
           <li><a href="/properties/my-properties">Home</a></li>    
           <li><a href="/logout">Logout</a></li>
         </ul>
-      </nav>
-      
-    <%} %>
+        <%}  %>
+    </nav> 
+
     <div class="content-wrapper">
       <%- body%>  
     </div>
-    <footer>&copy; Copyright 2018 MyProperty</footer>
+    <footer id="site-footer">&copy; Copyright 2018 MyProperty</footer>
   </div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
