@@ -3,21 +3,24 @@
 <% if( properties !== undefined){
    properties.forEach(function (element){
   %>
-  <div>
-    <p>Property:<%= element.name %> Address: <%= element.street %>, <%= element.nr %> (<%= element.zip %>,<%= element.city %>,<%= element.country %>)</p>
-    <div class="location_stats">
-      <span><%= element.location.coordinates[0] %></span><br>
-      <span><%= element.location.coordinates[1] %></span>
-    </div>
-    <button><a href="/properties/<%=element._id%>/edit">Edit property</a></button>
-    <button><a href="/properties/view/<%=element._id%>">View property</a></button>
-    <button><a href ="/properties/<%= element._id %>/posts/show/">Show communication to tenants on this property</a></button>
+  <div class="myproperty-block"> 
+    <p class="myproperty-view-header">Property: <%= element.name %></p>
+    <div class="myproperty-view-element">
+    <p>Address: <%= element.street %>, <%= element.nr %> (<%= element.zip %>,<%= element.city %>,<%= element.country %>)</p>
+      <div class="location_stats hide">
+        <span><%= element.location.coordinates[0] %></span>
+        <span><%= element.location.coordinates[1] %></span>
+      </div>
+      <button class="call-button"><a href="/properties/<%=element._id%>/edit">Edit</a></button>
+      <button class="call-button"><a href="/properties/view/<%=element._id%>">View</a></button>
+      <button class="call-button"><a href ="/properties/<%= element._id %>/posts/show/">Tenant communication</a></button>
+      </div>
   </div>
   <%
   }); 
 }%>
 
-<button id="newProp"><a href="/properties/create">Create a new property</a></button>
+<button id="newProp" class="call-button"><a href="/properties/create">Create a new property</a></button>
 
 <!-- Google Maps API settings -->
 <h3>My properties localization</h3>

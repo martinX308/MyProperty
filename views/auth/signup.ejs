@@ -1,24 +1,35 @@
+<nav class="navbar">
+  <p class= "logo">[i]</p>
+</nav>
+
+<h1>MyProperty</h1>
+<div>
+  <img class ="intro-img" src="images/background.png"/>
+</div>
 <h2>Signup to get started now</h2>
 
-<form action="/signup" method="POST" id="form-container">
-  <label for="username">Username</label>
-  <input id="username" type="text" name="username" placeholder="MyUser">
-  
-  <label for="email">Email</label>
-  <input id="email" type="text" name="email" placeholder="test@mail.com">
-  
-  <label for="password">Password</label>
-  <input id="password" type="password" name="password" placeholder="Your password">
 
-  <% if (typeof message !== "undefined") { %>
-    <div class="error-message"><%= message %></div>
-  <% } %>
-
-  
-  <button>Create account</button>
+<form class="myproperty-view-element" action="/signup" method="POST" id="form-container">
+  <div class="one-col flex-row">
+    <label for="username">Username: </label>
+    <input class="flex-item-grow" id="username" type="text" name="username" placeholder="MyUser">
+  </div>
+  <div class="one-col flex-row">
+    <label for="email">Email: </label>
+    <input class="flex-item-grow" id="email" type="text" name="email" placeholder="test@mail.com">
+  </div>
+  <div class="one-col flex-row">
+    <label for="password">Password: </label>
+    <input class="flex-item-grow" id="password" type="password" name="password" placeholder="Your password">
+  </div>
+  <button class="call-button">Create account</button>
 </form>
+
+<% if (typeof message !== "undefined") { %>
+  <div class="error-message"><%= message %></div>
+<% } %>
 
 <p class="account-message">
   Do you already have an account?
-  <a href="/">Login here</a>
+  <a class="link" href="/">Login here!</a>
 </p>

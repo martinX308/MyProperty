@@ -12,7 +12,7 @@ html {
 
 /* ---- typography ---- */
 
-body {
+body,p {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   padding:0;
   margin:0;
@@ -24,41 +24,14 @@ h2 {}
 
 h3 {}
 
-
-
+a {
+  text-decoration: none;
+}
 
 /* ---- layout ---- */
-.navbar{
-  position:fixed;
-  top:0;
-  width:100%;
-  height:3em;
-  padding:0.5em;
-  transition: .3s;
-  display: flex;
-  overflow: initial;
-}
-
-
-.navbar ul li{
-  list-style:none;
-  display:inline-block;
-  margin-right: 20px;
-  border-radius:5px;
-}
-
-.navbar ul li a{
-  color:#0066cc ;
-  text-decoration: none;
-  text-transform: uppercase;
-  transition: .3s;
-}
-
-
 
 .main-wrapper{
   width:100%;
-  height: 100vh;
   background-size: cover;
   background-position: center;
   background-color: #0066cc;
@@ -68,22 +41,10 @@ h3 {}
 .content-wrapper{
   margin:4em 1em;
   color:white;
+  overflow: hidden;
+  min-height: 500px;
+
 }
-
-#my-chart{
-  background-color: lightblue;
-}
-
-#site-header {}
-
-#site-footer {}
-
-#site-main {}
-
-
-
-
-/* ---- components ---- */
 
 #column-headers, .accounting-row {
   display: flex;
@@ -93,8 +54,162 @@ h3 {}
   width: 30%;
 }
 
+
+#site-header {}
+
+#site-footer {}
+
+#site-main {}
+
+
+/*--navbar--*/
+.navbar{
+  position:fixed;
+  top:0;
+  width:100%;
+  height:3em;
+  padding:0.5em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  overflow:hidden;
+  background-color:white;
+}
+
+
+.navbar ul li{
+  list-style:none;
+  display:inline-block;
+  margin-right: 20px;
+  border-radius:5px;
+  color:#0066cc ;
+}
+
+.navbar ul li a{
+  text-transform: uppercase;
+  color:#0066cc ;
+}
+
+/*-- footer --*/
+footer{
+  padding:1em;
+  text-align: center;
+  background-color: white;
+  color:#0066cc ;
+}
+/*-- Property Boxes--*/
+.myproperty-block{
+  margin-bottom: 1em;
+}
+
+.myproperty-view-header {
+  background-color: rgb(118, 134, 146);
+  border-radius: 5px;
+  padding:0.5em;
+}
+.myproperty-view-element {
+  background-color: steelblue;
+  border-radius: 5px;
+  padding:1em;
+  margin-bottom: 0.5em;
+}
+
+.myproperty-view-element p{
+ margin-bottom: 0.4em;
+}
+
+.myproperty-communication-element {
+  background-color: white;
+  color:steelblue;
+  border-radius: 5px;
+  padding:0.5em;
+  margin-bottom: 0.2em;
+  margin-left:2em;
+}
+
+
+.hide {
+  display:none;
+}
+/*-- button --*/
+.call-button{
+  background-color: white;
+  border-radius: 7px;
+  border-color:steelblue;
+  border-style: solid;
+  padding:0.3em;
+  -webkit-transition-duration: 0.2s; /* Safari */
+  transition-duration: 0.2s;
+}
+.call-button a{
+  color:#0066cc;
+}
+
+.call-button:hover{
+  background-color: rgb(230, 162, 73);
+}
+
+/*-- flex elements--*/
+.flex-col{
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-row{
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-item-grow{
+  flex:3 0 auto;
+}
+
+.flex-item-auto{
+  flex:1 0 auto;
+}
+
+.one-col{
+  width:100%;
+}
+.two-col{
+  width:45vw;
+}
+
+
+
+/* ---- components ---- */
+
+/*-- error message --*/
+.error-message{
+  color:red;
+}
+/*--logo --*/
+.logo {
+  color:#0066cc ;
+  font-size: 2em;
+  font-family:Helvetica, sans-serif;
+}
+
+/*--Canvas --*/
+
+#my-chart{
+  background-color: lightblue;
+}
+
+
+/*-- login and signup img --*/
+.intro-img {
+  width:100%;
+}
+
+.link{
+  color:white;
+  font-weight: bold;
+}
+/*-- google map --*/
 #map {
-  border: solid 2px red;
-  height: 500px;
-  width: 500px;
+  border: solid 2px steelblue;
+  height: 45vw;
+  width: 100%;
+  margin:0 auto;
 }
