@@ -11,7 +11,6 @@ const transactionSchema = new Schema({
 });
 
 const pictureSchema = new Schema({
-  picture_name: String,
   path: String,
   originalName: String
 }, {
