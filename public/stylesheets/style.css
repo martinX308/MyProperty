@@ -129,7 +129,6 @@ a {
   margin-bottom: 1em;
 }
 
-<<<<<<< HEAD
 .myproperty-view-header {
   background-color: rgb(118, 134, 146);
   border-radius: 5px;
@@ -140,12 +139,11 @@ a {
   border-radius: 5px;
   padding:1em;
   margin-bottom: 0.5em;
-=======
+}
 /* ---- components ---- */
 img {
-  height: auto;
-  width: auto;
->>>>>>> 6e6b975dd627ba41c85c9f823daed06db2a732d5
+  height:auto;
+  width:auto;
 }
 
 .myproperty-view-element p{
