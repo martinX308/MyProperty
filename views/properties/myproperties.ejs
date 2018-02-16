@@ -3,9 +3,11 @@
 <% if( properties !== undefined){
    properties.forEach(function (element){
   %>
-<<<<<<< HEAD
   <div class="myproperty-block"> 
     <p class="myproperty-view-header">Property: <%= element.name %></p>
+    <% if(element.propertyPic) { %>
+      <img src="<%= element.propertyPic.path %>" alt="<%= element.propertyPic.originalName %>" />
+    <% }; %>
     <div class="myproperty-view-element">
     <p>Address: <%= element.street %>, <%= element.nr %> (<%= element.zip %>,<%= element.city %>,<%= element.country %>)</p>
       <div class="location_stats hide">
@@ -16,20 +18,6 @@
       <button class="call-button"><a href="/properties/view/<%=element._id%>">View</a></button>
       <button class="call-button"><a href ="/properties/<%= element._id %>/posts/show/">Tenant communication</a></button>
       </div>
-=======
-  <div>
-    <% if(element.propertyPic) { %>
-    <img src="<%= element.propertyPic.path %>" alt="<%= element.propertyPic.originalName %>" />
-    <% }; %>
-    <p>Property:<%= element.name %> Address: <%= element.street %>, <%= element.nr %> (<%= element.zip %>,<%= element.city %>,<%= element.country %>)</p>
-    <div class="location_stats">
-      <span><%= element.location.coordinates[0] %></span><br>
-      <span><%= element.location.coordinates[1] %></span>
-    </div>
-    <button><a href="/properties/<%=element._id%>/edit">Edit property</a></button>
-    <button><a href="/properties/view/<%=element._id%>">View property</a></button>
-    <button><a href ="/properties/<%= element._id %>/posts/show/">Show communication to tenants on this property</a></button>
->>>>>>> 9316ca06a53061e2a407cc25c39764910652a5e9
   </div>
   <%
   }); 
