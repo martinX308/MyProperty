@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // packages to upload pictures from the user
-const multer  = require('multer');
+const multer = require('multer');
 const upload = multer({ dest: './public/uploads/' });
 
 // link property, post model
@@ -37,7 +37,6 @@ router.get('/create', ensureloggedin, (req, res, next) => {
   res.render('properties/newproperty');
 });
 
-
 // --- create new property for logged in user
 router.post('/create', ensureloggedin, upload.single('photo'), (req, res, next) => {
   const userId = req.user._id;
@@ -49,8 +48,8 @@ router.post('/create', ensureloggedin, upload.single('photo'), (req, res, next) 
   const country = req.body.country;
 
   const newPicture = {
-    path : `/uploads/${req.file.filename}`,
-    originalName : req.file.originalname
+    path: `/uploads/${req.file.filename}`,
+    originalName: req.file.originalname
   };
 
   let location = {
@@ -106,14 +105,13 @@ router.get('/:id/edit', ensureloggedin, ensureOwner, (req, res, next) => {
   });
 });
 
-
 // --- update single property master data
 router.post('/:id/edit/property', upload.single('photo'), (req, res, next) => {
   const propertyId = req.params.id;
 
   const newPicture = {
-    path : `/uploads/${req.file.filename}`,
-    originalName : req.file.originalname
+    path: `/uploads/${req.file.filename}`,
+    originalName: req.file.originalname
   };
 
   const updates = {
