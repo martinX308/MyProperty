@@ -7,6 +7,9 @@ function main () {
 
   function requestGraphData () {
     const id = window.location.href.slice(38);
+    ctx.fillStyle = 'white';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
     axios.get('/api/draw-my-chart/' + id)
       .then(result => {
         console.log('result:' + result.data);
@@ -17,12 +20,14 @@ function main () {
               { label: 'monthly cost',
                 fillColor: 'rgba(220,220,220,0.2)',
                 strokeColor: 'rgba(220,220,220,1)',
-                data: result.data.yArrayCost
+                data: result.data.yArrayCost,
+                backgroundColor: 'orange'
               },
               { label: 'monthly revenue',
                 fillColor: 'rgba(151,187,205,0.2)',
                 strokeColor: 'rgba(151,187,205,1)',
-                data: result.data.yArrayRev
+                data: result.data.yArrayRev,
+                backgroundColor: 'yellow'
               }
             ]
           },
@@ -47,7 +52,5 @@ function main () {
     requestGraphData();
   };
 }
-
-
 
 window.onload = main;

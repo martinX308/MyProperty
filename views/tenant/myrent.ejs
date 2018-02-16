@@ -1,0 +1,15 @@
+
+<h2>Welcome user</h2>
+<h3>Here you can review your rent</h3>
+
+<% if( properties !== undefined){
+  properties.forEach(function (element){
+ %>
+ <div>
+   <p>Property:<%= element.name %> Address: <%= element.street %>, <%= element.nr %> (<%= element.zip %>,<%= element.city %>,<%= element.country %>)</p>
+ </div>
+ <div><a href ="/my-rent/<%= element._id %>/posts/show/">Show communication and send requests on this property</a></div>
+
+ <%
+ }); 
+}%>

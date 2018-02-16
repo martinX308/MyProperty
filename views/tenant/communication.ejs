@@ -1,0 +1,26 @@
+
+<div id="container">
+    <h2>Historical posts on this rented property</h2>
+  
+    <% posts.forEach(function(element) { %>
+      <div class="post-container myproperty-communication-element">
+        <p>Posting: <%= element.post %></p>
+        <p><span>User - <%= element.user_name %></span><span class="date"> Date - <%= element.created_at.toString().slice(0,15) %><span></p>
+      </div>
+    <% }) %>
+</div>
+
+<div id="container2">
+    <h2>Here you can post for the property:</h2>
+  
+    <form action='/<%= role %>/<%= user._id %>/posts/new/<%= propertyId%>' method="POST" id="new-post">
+      <label for="postText">New post</label>
+      <input type="text" name="postText" maxlength="140"
+        placeholder="Place your request here" >
+      <button class="button">post!</button>
+    </form>
+  
+    <% if (typeof(errorMessage) != "undefined") { %>
+      <div class="error-message"><%= errorMessage %></div>
+    <% } %>
+</div>

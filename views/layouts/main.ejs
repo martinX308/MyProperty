@@ -5,20 +5,30 @@
   <title>MyProperty</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- link for autocomplete google API -->
+  <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
   <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 
 <body>
-  <%if (user) { %>
-    <nav>
-      <ul>
-        <li><a href="/properties/my-properties">Home</a></li>    
-        <li><a href="/logout">Logout</a></li>
-      </ul>
-    </nav>
-  <%} %>
-  <%- body%>  
-  
+  <div class="main-wrapper">
+   
+    <nav class="navbar">
+        <p class= "logo">[i]</p>
+        <%if (user) { %>
+        <ul>
+          <li><a href="/properties/my-properties">Home</a></li>    
+          <li><a href="/logout">Logout</a></li>
+        </ul>
+        <%}  %>
+    </nav> 
+
+    <div class="content-wrapper">
+      <%- body%>  
+    </div>
+    <footer id="site-footer">&copy; Copyright 2018 MyProperty</footer>
+  </div>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.js"></script>
   <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script src="/javascripts/main.js" type="text/javascript"></script>
