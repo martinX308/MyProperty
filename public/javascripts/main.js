@@ -3,7 +3,7 @@
 function main () {
   const canvas = document.getElementById('my-chart');
   const ctx = canvas.getContext('2d');
-  console.log('test axios');
+  // console.log('test axios');
 
   function requestGraphData () {
     const id = window.location.href.slice(38);
